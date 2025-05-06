@@ -1,0 +1,104 @@
+---
+const posts = [
+  {
+    title: "Building Performant React Applications",
+    excerpt: "Learn advanced techniques for optimizing React applications, including code splitting, memoization, and rendering optimizations.",
+    date: "March 15, 2023",
+    image: "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg",
+    tag: "React",
+    url: "#"
+  },
+  {
+    title: "The Future of JavaScript in 2025",
+    excerpt: "Exploring upcoming features and trends in JavaScript, from pattern matching to advanced type systems and performance improvements.",
+    date: "February 28, 2023",
+    image: "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg",
+    tag: "JavaScript",
+    url: "#"
+  },
+  {
+    title: "Getting Started with AI and Machine Learning",
+    excerpt: "A beginner-friendly guide to implementing AI and ML in your applications without a heavy math background.",
+    date: "January 10, 2023",
+    image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg",
+    tag: "AI",
+    url: "#"
+  }
+];
+---
+
+<section id="blog" class="section">
+  <div class="container">
+    <h2 class="section-title text-center">Latest <span class="gradient-text">Articles</span></h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+      {posts.map((post, index) => (
+        <a href={post.url} class="blog-card group">
+          <article class="bg-white dark:bg-dark-900 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+            <div class="relative overflow-hidden pt-[56.25%]">
+              <img 
+                src={post.image} 
+                alt={post.title} 
+                class="absolute top-0 left-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
+              />
+              <div class="absolute top-4 right-4">
+                <span class="bg-primary-600 text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                  {post.tag}
+                </span>
+              </div>
+            </div>
+            <div class="p-6 flex-grow flex flex-col">
+              <div class="mb-2 text-sm text-dark-500 dark:text-dark-400">
+                {post.date}
+              </div>
+              <h3 class="text-xl font-bold mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                {post.title}
+              </h3>
+              <p class="text-dark-600 dark:text-dark-400 mb-4 flex-grow">
+                {post.excerpt}
+              </p>
+              <div class="flex items-center text-primary-600 dark:text-primary-400 font-medium">
+                Read More
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H3a1 1 0 110-2h9.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </div>
+            </div>
+          </article>
+        </a>
+      ))}
+    </div>
+    
+    <div class="text-center mt-12">
+      <a href="#" class="btn-outline">
+        View All Articles
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const blogCards = document.querySelectorAll('.blog-card');
+    
+    gsap.from(blogCards, {
+      scrollTrigger: {
+        trigger: '#blog',
+        start: 'top 70%',
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'power3.out'
+    });
+  });
+</script>

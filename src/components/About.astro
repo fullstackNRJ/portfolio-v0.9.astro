@@ -1,0 +1,109 @@
+---
+---
+
+<section id="about" class="section bg-gray-50 dark:bg-dark-900/30">
+  <div class="container">
+    <h2 class="section-title text-center">About <span class="gradient-text">Me</span></h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="relative">
+        <div class="relative z-10 overflow-hidden rounded-xl">
+          <img 
+            src="https://images.pexels.com/photos/4974914/pexels-photo-4974914.jpeg" 
+            alt="Neeraj working on code" 
+            class="w-full h-full object-cover rounded-xl transform transition-transform hover:scale-105 duration-700" 
+          />
+        </div>
+        <div class="absolute -left-5 -bottom-5 w-24 h-24 bg-primary-500 rounded-xl z-0"></div>
+        <div class="absolute -right-5 -top-5 w-24 h-24 bg-secondary-500 rounded-xl z-0"></div>
+      </div>
+      
+      <div class="space-y-6">
+        <p class="text-lg text-dark-700 dark:text-dark-300">
+          Hey there! I'm Neeraj, a passionate developer and tech enthusiast with a love for building innovative <span class="highlight">web</span> and <span class="highlight">mobile</span> applications. My journey in tech started over 6 years ago, and I've been hooked ever since.
+        </p>
+        
+        <p class="text-lg text-dark-700 dark:text-dark-300">
+          I specialize in <span class="highlight">JavaScript</span> ecosystems, creating seamless experiences with modern frameworks like <span class="highlight">React</span>, Next.js, and <span class="highlight">Angular</span>. I'm also experienced with backend technologies like Node.js and cloud platforms.
+        </p>
+
+        
+          <p class="text-lg text-dark-700 dark:text-dark-300">
+            I'm also well-versed in no-code/low-code platforms like <span class="highlight">Webflow</span>, <span class="highlight">Bubble</span>, and <span class="highlight">Framer</span>, enabling rapid prototyping and efficient solution delivery for various business needs.
+          </p>
+        
+
+        <p class="text-lg text-dark-700 dark:text-dark-300">
+          My goal is to create <span class="highlight">user-friendly</span> applications that solve <span class="highlight">real-world</span> problems. I believe in the power of <span class="highlight">collaboration</span> and enjoy working with teams to bring ideas to life.
+        </p>
+        
+        <p class="text-lg text-dark-700 dark:text-dark-300">
+          When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing my knowledge through <span class="highlight">blog posts</span> and <span class="highlight">tutorials</span>.
+        </p>
+        
+        <div class="pt-4">
+          <h3 class="text-2xl font-extrabold mb-4 text-primary-600 dark:text-secondary-400">Key Highlights</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start font-bold text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>6+ years of experience in web and mobile development</span>
+            </li>
+            <li class="flex items-start font-bold text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Created 30+ successful projects for various clients</span>
+            </li>
+            <li class="flex items-start font-bold text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Open source contributor and tech community mentor</span>
+            </li>
+            <li class="flex items-start font-bold text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Constantly learning and exploring new technologies</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    gsap.from('#about img', {
+      scrollTrigger: {
+        trigger: '#about',
+        start: 'top 80%'
+      },
+      duration: 1,
+      scale: 0.8,
+      opacity: 0,
+      ease: 'power3.out'
+    });
+    
+    gsap.from('#about p, #about h3, #about li', {
+      scrollTrigger: {
+        trigger: '#about',
+        start: 'top 70%'
+      },
+      duration: 0.8,
+      y: 30,
+      opacity: 0,
+      stagger: 0.2,
+      ease: 'power3.out'
+    });
+  });
+</script>

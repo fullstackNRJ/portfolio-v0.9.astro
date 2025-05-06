@@ -1,0 +1,87 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import CursorEffect from '../components/CursorEffect.astro';
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { 
+  title, 
+  description = "Portfolio of Neeraj Mukta - Builder, Freelance Engineer and Futurist"
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="min-h-screen bg-white dark:bg-dark-950 text-dark-950 dark:text-white">
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <CursorEffect />
+    
+    <script>
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+      import Lenis from "@studio-freight/lenis";
+      
+      // Register GSAP plugins
+      gsap.registerPlugin(ScrollTrigger);
+      
+      // Initialize smooth scrolling
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+      
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      
+      requestAnimationFrame(raf);
+
+      // Theme toggle functionality
+      document.addEventListener('DOMContentLoaded', () => {
+        const themeToggleButtons = document.querySelectorAll('[data-theme-toggle]');
+        
+        // Check system preferences or localStorage
+        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('theme');
+        
+        if (storedTheme === 'dark' || (!storedTheme && userPrefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+        
+        themeToggleButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            
+            // Update localStorage
+            if (document.documentElement.classList.contains('dark')) {
+              localStorage.setItem('theme', 'dark');
+            } else {
+              localStorage.setItem('theme', 'light');
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

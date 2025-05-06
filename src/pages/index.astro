@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import Projects from '../components/Projects.astro';
+import Blog from '../components/Blog.astro';
+import Contact from '../components/Contact.astro';
+
+export const prerender = true
+---
+
+<Layout title="Neeraj Mukta - Developer & Tech Enthusiast">
+  <Hero />
+  <About />
+  <Skills />
+  <!-- <Projects />
+  <Blog /> -->
+  <Contact />
+</Layout>

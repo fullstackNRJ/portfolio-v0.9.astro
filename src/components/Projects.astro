@@ -1,0 +1,155 @@
+---
+const projects = [
+  {
+    title: "E-commerce Platform",
+    description: "A fully-featured e-commerce platform with product catalog, shopping cart, and payment processing.",
+    image: "https://images.pexels.com/photos/5082579/pexels-photo-5082579.jpeg",
+    tags: ["Next.js", "Tailwind CSS", "Stripe", "MongoDB"],
+    link: "#"
+  },
+  {
+    title: "Task Management App",
+    description: "A productivity app that helps users organize tasks with features like drag-and-drop, categories, and reminders.",
+    image: "https://images.pexels.com/photos/5474296/pexels-photo-5474296.jpeg",
+    tags: ["React", "TypeScript", "Node.js", "PostgreSQL"],
+    link: "#"
+  },
+  {
+    title: "Real-time Chat Application",
+    description: "A messaging platform with real-time communication, user authentication, and file sharing capabilities.",
+    image: "https://images.pexels.com/photos/5473337/pexels-photo-5473337.jpeg",
+    tags: ["React Native", "Firebase", "WebSockets"],
+    link: "#"
+  },
+  {
+    title: "Personal Finance Dashboard",
+    description: "A comprehensive dashboard for tracking expenses, income, and financial goals with data visualization.",
+    image: "https://images.pexels.com/photos/5483071/pexels-photo-5483071.jpeg",
+    tags: ["Angular", "D3.js", "Express", "MongoDB"],
+    link: "#"
+  },
+  {
+    title: "Content Management System",
+    description: "A flexible CMS for creating and managing digital content with custom workflows and user roles.",
+    image: "https://images.pexels.com/photos/5076527/pexels-photo-5076527.jpeg",
+    tags: ["Next.js", "GraphQL", "Postgres"],
+    link: "#"
+  },
+  {
+    title: "AI-Powered Recipe Generator",
+    description: "An application that generates personalized recipes based on available ingredients and dietary preferences.",
+    image: "https://images.pexels.com/photos/5966430/pexels-photo-5966430.jpeg",
+    tags: ["React", "Node.js", "OpenAI API"],
+    link: "#"
+  }
+];
+
+const categories = ["All", "Frontend", "Backend", "Mobile", "AI", "DevOps"];
+---
+
+<section id="projects" class="section bg-gray-50 dark:bg-dark-900/30">
+  <div class="container">
+    <h2 class="section-title text-center">Featured <span class="gradient-text">Projects</span></h2>
+    
+    <div class="flex flex-wrap justify-center gap-3 mb-10">
+      {categories.map((category, index) => (
+        <button 
+          class={`filter-btn px-4 py-2 rounded-full text-sm font-medium transition-colors ${index === 0 ? 'bg-primary-600 text-white' : 'bg-white dark:bg-dark-800 text-dark-700 dark:text-dark-300 hover:bg-primary-100 dark:hover:bg-dark-700'}`}
+          data-category={category}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 project-grid">
+      {projects.map((project) => (
+        <a href={project.link} class="project-card overflow-hidden rounded-xl bg-white dark:bg-dark-900 shadow-sm hover:shadow-lg transition-all duration-300 group">
+          <div class="relative overflow-hidden w-full pt-[60%]">
+            <img 
+              src={project.image} 
+              alt={project.title} 
+              class="absolute top-0 left-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+            />
+            <div class="absolute top-4 right-4 flex flex-wrap gap-2 justify-end">
+              {project.tags.slice(0, 2).map((tag) => (
+                <span class="bg-white/90 dark:bg-dark-900/90 text-primary-600 dark:text-primary-400 text-xs font-medium px-2 py-1 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+              {project.title}
+            </h3>
+            <p class="text-dark-600 dark:text-dark-400 mb-4">{project.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <span class="skill-badge">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+    
+    <div class="text-center mt-12">
+      <a href="#" class="btn-outline">
+        View All Projects
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Project card animations
+    const cards = document.querySelectorAll('.project-card');
+    gsap.from(cards, {
+      scrollTrigger: {
+        trigger: '.project-grid',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      },
+      y: 50,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'power3.out'
+    });
+    
+    // Filter buttons
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-primary-600', 'text-white');
+          b.classList.add('bg-white', 'dark:bg-dark-800', 'text-dark-700', 'dark:text-dark-300', 'hover:bg-primary-100', 'dark:hover:bg-dark-700');
+        });
+        
+        btn.classList.remove('bg-white', 'dark:bg-dark-800', 'text-dark-700', 'dark:text-dark-300', 'hover:bg-primary-100', 'dark:hover:bg-dark-700');
+        btn.classList.add('bg-primary-600', 'text-white');
+        
+        // Add filtering logic here (for demonstration, we'll just animate)
+        gsap.from(cards, {
+          y: 20,
+          opacity: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: 'power3.out'
+        });
+      });
+    });
+  });
+</script>

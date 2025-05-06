@@ -1,0 +1,206 @@
+---
+const skills = [
+  {
+    category: "Frontend",
+    items: [
+      { name: "JavaScript", level: 95 },
+      { name: "TypeScript", level: 90 },
+      { name: "React", level: 92 },
+      { name: "Next.js", level: 88 },
+      { name: "Angular", level: 85 },
+      { name: "Astro", level: 80 },
+      { name: "HTML/CSS", level: 95 },
+      { name: "Tailwind CSS", level: 90 }
+    ]
+  },
+  {
+    category: "Backend",
+    items: [
+      { name: "Node.js", level: 90 },
+      { name: "Express", level: 88 },
+      { name: "NestJS", level: 82 },
+      { name: "REST APIs", level: 92 },
+      { name: "GraphQL", level: 85 },
+      { name: "SQL", level: 80 },
+      { name: "MongoDB", level: 85 }
+    ]
+  },
+  {
+    category: "Mobile",
+    items: [
+      { name: "React Native", level: 88 },
+      { name: "Expo", level: 85 },
+      { name: "Flutter", level: 75 }
+    ]
+  },
+  {
+    category: "DevOps & Tools",
+    items: [
+      { name: "Git", level: 90 },
+      { name: "Docker", level: 82 },
+      { name: "Vercel", level: 88 },
+      { name: "Cloudflare", level: 85 },
+      { name: "CI/CD", level: 80 },
+      { name: "AWS", level: 75 }
+    ]
+  }
+];
+---
+
+<section id="skills" class="section">
+  <div class="container">
+    <h2 class="section-title text-center">My <span class="gradient-text">Skills</span></h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+      {skills.map((category) => (
+        <div class="card p-6 reveal">
+          <h3 class="text-xl font-bold mb-6 gradient-text">{category.category}</h3>
+          
+          <div class="space-y-6">
+            {category.items.map((skill) => (
+              <div>
+                <div class="flex justify-between mb-2">
+                  <span class="font-medium">{skill.name}</span>
+                  <span class="text-primary-600 dark:text-primary-400">{skill.level}%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-dark-700 rounded-full h-2.5">
+                  <div 
+                    class="skill-progress bg-gradient-to-r from-red-600 to-secondary-500 h-2.5 rounded-full" 
+                    style={`width: 0%; max-width: ${skill.level}%`}
+                  >
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">JavaScript</p>
+      </div>
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">TypeScript</p>
+      </div>
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">React</p>
+      </div>
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" class="h-12 mx-auto mb-3 dark:invert" />
+        <p class="font-medium">Next.js</p>
+      </div>
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">Node.js</p>
+      </div>
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">Tailwind</p>
+      </div>
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">Angular</p>
+      </div>
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">MongoDB</p>
+      </div>
+    </div>
+    <!-- New row for Webflow, Bubble, Framer, Shopify -->
+    <div class="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webflow/webflow-original.svg" alt="Webflow" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">Webflow</p>
+      </div>
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/shopify/shopify-original.svg" alt="Shopify" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">Shopify</p>
+      </div>
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/framer/framer-original.svg" alt="Framer" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">Framer</p>
+      </div>
+      <div class="tech-card p-4 bg-white dark:bg-dark-900 rounded-xl shadow-sm hover:shadow-md transition-all text-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bubble/bubble-original.svg" alt="Bubble" class="h-12 mx-auto mb-3" />
+        <p class="font-medium">Bubble</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Reveal cards on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach((el, index) => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        y: 50,
+        opacity: 1,
+        duration: 0.8,
+        delay: index * 0.15,
+        ease: 'power3.out'
+      });
+    });
+    
+    // Animate skill progress bars
+    const bars = document.querySelectorAll('.skill-progress');
+    bars.forEach((bar) => {
+      const width = bar.style.maxWidth;
+      gsap.fromTo(
+        bar,
+        { width: '0%' },
+        { 
+          width: width, 
+          duration: 1.5, 
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: bar,
+            start: 'top 90%',
+            toggleActions: 'play none none reverse',
+          }
+        }
+      );
+    });
+    
+    // Animate tech cards
+    const techCards = document.querySelectorAll('.tech-card');
+    gsap.from(techCards, {
+      scrollTrigger: {
+        trigger: '.tech-card',
+        start: 'top 85%',
+        toggleActions: 'play none none reverse',
+        
+      },
+      y: 30,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 0.6,
+      ease: 'power3.out'
+    });
+  });
+</script>
+
+<style>
+  .tech-card {
+    transition: transform 0.3s ease;
+  }
+  
+  .tech-card:hover {
+    transform: translateY(-8px);
+  }
+</style>
