@@ -1,6 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import FoodFinder from '../assets/foodfinder.png';
+import ZzzCoach from '../assets/zzzcoach.png';
+import Quickkart from '../assets/quickkart.png';
 const projects = [
-  {
+  /* {
     title: "E-commerce Platform",
     description: "A fully-featured e-commerce platform with product catalog, shopping cart, and payment processing.",
     image: "https://images.pexels.com/photos/5082579/pexels-photo-5082579.jpeg",
@@ -34,14 +38,36 @@ const projects = [
     image: "https://images.pexels.com/photos/5076527/pexels-photo-5076527.jpeg",
     tags: ["Next.js", "GraphQL", "Postgres"],
     link: "#"
+  }, */
+  
+  /* {
+    title: "Task Management App",
+    description: "A productivity app that helps users organize tasks with features like drag-and-drop, categories, and reminders.",
+    image: "https://images.pexels.com/photos/5474296/pexels-photo-5474296.jpeg",
+    tags: ["React", "TypeScript", "Node.js", "PostgreSQL"],
+    link: "/apps/the-organizer"
+  }, */
+  {
+    title: "Food Finder: AI-Powered Recipe Generator",
+    description: "An application that generates personalized recipes based on available ingredients and dietary preferences.",
+    image: FoodFinder,
+    tags: ["React", "Node.js", "OpenAI API"],
+    link: "https://foodfinder.space"
   },
   {
-    title: "AI-Powered Recipe Generator",
-    description: "An application that generates personalized recipes based on available ingredients and dietary preferences.",
-    image: "https://images.pexels.com/photos/5966430/pexels-photo-5966430.jpeg",
-    tags: ["React", "Node.js", "OpenAI API"],
-    link: "#"
-  }
+    title: "Zzz Coach: Sleep Coach",
+    description: "An AI-powered sleep coach that provides personalized sleep tips and recommendations.",
+    image: ZzzCoach,
+    tags: ["React", "React Native", "Node.js", "OpenAI API"],
+    link: "https://zzzcoach.in"
+  },
+  {
+    title: "E-commerce Platform",
+    description: "A fully-featured e-commerce platform with product catalog, shopping cart, and payment processing.",
+    image: Quickkart,
+    tags: ["Next.js", "Tailwind CSS", "Stripe", "MongoDB"],
+    link: "https://www.quickkart.xyz/"
+  },
 ];
 
 const categories = ["All", "Frontend", "Backend", "Mobile", "AI", "DevOps"];
@@ -64,9 +90,10 @@ const categories = ["All", "Frontend", "Backend", "Mobile", "AI", "DevOps"];
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 project-grid">
       {projects.map((project) => (
-        <a href={project.link} class="project-card overflow-hidden rounded-xl bg-white dark:bg-dark-900 shadow-sm hover:shadow-lg transition-all duration-300 group">
+        <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-card overflow-hidden rounded-xl bg-white dark:bg-dark-900 shadow-sm hover:shadow-lg transition-all duration-300 group">
           <div class="relative overflow-hidden w-full pt-[60%]">
-            <img 
+            <Image 
+  
               src={project.image} 
               alt={project.title} 
               class="absolute top-0 left-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
@@ -94,14 +121,14 @@ const categories = ["All", "Frontend", "Backend", "Mobile", "AI", "DevOps"];
       ))}
     </div>
     
-    <div class="text-center mt-12">
+   <!--  <div class="text-center mt-12">
       <a href="#" class="btn-outline">
         View All Projects
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
         </svg>
       </a>
-    </div>
+    </div> -->
   </div>
 </section>
 

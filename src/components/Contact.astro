@@ -55,8 +55,9 @@
           </div>
         </div>
         
-        <div class="p-8 md:col-span-3">
-          <form id="contact-form" class="space-y-6">
+        <div id="form-container" class="p-8 md:col-span-3">
+          
+          <form id="contact-form" class="space-y-6" novalidate>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label for="name" class="block text-sm font-medium text-dark-700 dark:text-dark-300 mb-1">Name</label>
@@ -68,6 +69,7 @@
                   class="w-full px-4 py-2 border border-gray-300 dark:border-dark-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-dark-800 dark:text-white"
                   placeholder="Your name"
                 />
+                <span class="form-error" id="error-name" style="display:none"></span>
               </div>
               <div>
                 <label for="email" class="block text-sm font-medium text-dark-700 dark:text-dark-300 mb-1">Email</label>
@@ -79,6 +81,7 @@
                   class="w-full px-4 py-2 border border-gray-300 dark:border-dark-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-dark-800 dark:text-white"
                   placeholder="your.email@example.com"
                 />
+                <span class="form-error" id="error-email" style="display:none"></span>
               </div>
             </div>
             
@@ -92,6 +95,7 @@
                 class="w-full px-4 py-2 border border-gray-300 dark:border-dark-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-dark-800 dark:text-white"
                 placeholder="How can I help you?"
               />
+              <span class="form-error" id="error-subject" style="display:none"></span>
             </div>
             
             <div>
@@ -104,6 +108,7 @@
                 class="w-full px-4 py-2 border border-gray-300 dark:border-dark-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-dark-800 dark:text-white"
                 placeholder="Your message..."
               ></textarea>
+              <span class="form-error" id="error-message" style="display:none"></span>
             </div>
             
             <button 
@@ -121,6 +126,15 @@
     </div>
   </div>
 </section>
+
+<style>
+  .form-error {
+    color: #dc2626; /* Tailwind's red-600 */
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+</style>
 
 <script>
   import { gsap } from "gsap";
@@ -148,24 +162,51 @@
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+        // Validate required fields
+        const requiredFields = ['name', 'email', 'subject', 'message'];
+        let hasError = false;
+        requiredFields.forEach((field) => {
+          const input = form.elements[field];
+          const errorSpan = document.getElementById(`error-${field}`);
+          if (input && !input.value.trim()) {
+            input.classList.add('border-red-500');
+            if (errorSpan) {
+              errorSpan.textContent = 'This field is required.';
+              errorSpan.style.display = 'block';
+            }
+            hasError = true;
+          } else if (input) {
+            input.classList.remove('border-red-500');
+            if (errorSpan) {
+              errorSpan.textContent = '';
+              errorSpan.style.display = 'none';
+            }
+          }
+        });
+        if (hasError) {
+          return;
+        }
         // Collect form data
         const formData = new FormData(form);
         const formObject = Object.fromEntries(formData.entries());
-        
+        console.log('Form Data:', formObject);
         try {
-          // Replace with actual API endpoint
-          // const response = await fetch('/api/contact', {
-          //   method: 'POST',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify(formObject),
-          // });
           
-          // For demonstration, we'll just show an alert
-          alert('Message sent successfully! (This is a demo)');
-          form.reset();
+           const response = await fetch('/api/contact', {
+             method: 'POST',
+             headers: {
+               'Content-Type': 'application/json',
+             },
+             body: JSON.stringify(formObject),
+           });
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          // Handle success (e.g., show a success message)
+          const responseData = await response.json();
+         if(responseData) {loadBookingCalender(); form?.reset(); }
+          
+          
         } catch (error) {
           console.error('Error submitting form:', error);
           alert('There was an error sending your message. Please try again.');
@@ -173,4 +214,32 @@
       });
     }
   });
+
+  function loadBookingCalender(){
+    const contactFormRef = document.getElementById('contact-form');
+    contactFormRef.style.display = 'none';
+    
+  const formContainerRef = document.getElementById('form-container');
+  //formContainerRef?.appendChild(calenderScript);
+  const calenderScriptTag = document.createElement('script');
+  calenderScriptTag.innerText = calenderScript;
+  //calenderScriptTag.style.display = 'none'
+  document.body?.append(calenderScriptTag);
+  }
+
+  var calenderScript = `
+  
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+   Cal("init", "15min", {origin:"https://cal.com"});
+
+  Cal.ns["15min"]("inline", {
+    elementOrSelector:"#form-container",
+    config: {"layout":"month_view"},
+    calLink: "themvpco/15min",
+  });
+  Cal.ns["15min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+
+  `;
+
 </script>
+
