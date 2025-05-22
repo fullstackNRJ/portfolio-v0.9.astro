@@ -1,0 +1,11 @@
+---
+import ToolsLayout from '../../../layouts/ToolsLayout.astro';
+import CarouselGenPage from './CarouselGenPage.jsx';
+---
+<ToolsLayout title="Carousel Generator" description="Generate beautiful carousels from your content. Explain long text in a few slides. Apply your branding to the carousels.">
+  <div class=" bg-dark-900 pt-12 text-white">
+    <h1 class="text-4xl font-bold text-center mb-10 gradient-text">Carousel Generator</h1>
+    <p class="text-lg text-center">Generate beautiful carousels from your content. Explain long text in a few slides. Apply your branding to the carousels.</p>
+  </div>
+<CarouselGenPage client:only />
+</ToolsLayout>
