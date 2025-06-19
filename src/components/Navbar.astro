@@ -1,5 +1,5 @@
 ---
-import ModeSelector from './ModeSelector';
+import ModeSelector from "./ModeSelector";
 
 const navItems = [
   { name: "Home", url: "/" },
@@ -11,54 +11,211 @@ const navItems = [
 ];
 ---
 
-<header class="fixed w-full top-0 md:top-0 bottom-0 md:bottom-auto z-40 transition-all duration-300 backdrop-blur-md">
+<header
+  class="fixed w-full top-0 left-0 right-0 z-40 transition-all duration-300 md:backdrop-blur-md"
+>
   <div class="container">
-    <nav class="bg-white/80 dark:bg-dark-950/80 backdrop-blur-sm border border-gray-200/50 dark:border-dark-800/50 rounded-t-2xl md:rounded-2xl p-4">
+    <nav
+      class="bg-white/80 dark:bg-dark-950/80 md:backdrop-blur-sm border border-gray-200/50 dark:border-dark-800/50 rounded-b-2xl md:rounded-2xl p-4"
+    >
       <div class="flex items-center justify-between gap-6">
         <a href="/" class="text-2xl font-display font-bold gradient-text">NM</a>
-        
+
         <div class="hidden md:flex items-center gap-8">
-          {navItems.map(item => (
-            <a 
-              href={item.url} 
-              class="text-dark-800 dark:text-dark-100 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors duration-200"
-            >
-              {item.name}
-            </a>
-          ))}
-        </div>
-        
-        <div class="flex items-center gap-4">
-          <button 
-            data-theme-toggle
-            aria-label="Toggle theme" 
-            class="p-2 rounded-full text-dark-800 dark:text-dark-100 hover:bg-gray-200 dark:hover:bg-dark-800 focus:outline-none"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          </button>
-          
-          <ModeSelector client:load />
-        </div>
-        
-        <!-- Mobile Navigation -->
-        <div class="fixed bottom-0 left-0 right-0 md:hidden h- bg-white/80 dark:bg-dark-950/80 backdrop-blur-sm border-t border-gray-200/50 dark:border-dark-800/50 p-4">
-          <div class="flex justify-around">
-            {navItems.map(item => (
-              <a 
-                href={item.url} 
+          {
+            navItems.map((item) => (
+              <a
+                href={item.url}
                 class="text-dark-800 dark:text-dark-100 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors duration-200"
               >
                 {item.name}
               </a>
-            ))}
-          </div>
+            ))
+          }
+        </div>
+
+        <div class="flex items-center gap-4">
+          <button
+            data-theme-toggle
+            aria-label="Toggle theme"
+            class="p-2 rounded-full text-dark-800 dark:text-dark-100 hover:bg-gray-200 dark:hover:bg-dark-800 focus:outline-none"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 hidden dark:block"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              ></path>
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 block dark:hidden"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              ></path>
+            </svg>
+          </button>
+
+          <ModeSelector client:load />
         </div>
       </div>
     </nav>
   </div>
+
+  <!-- Mobile Navigation -->
+  <div
+    class="fixed bottom-6 left-4 right-4 md:hidden bg-white/95 dark:bg-dark-900/95 rounded-full border border-gray-200/50 dark:border-dark-800/50 shadow-lg shadow-gray-200/20 dark:shadow-dark-950/30"
+  >
+    <div class="flex justify-between items-center px-2 py-2">
+      <a
+        href="/"
+        class="mobile-nav-link flex flex-col items-center gap-1 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-dark-800 transition-all"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+          ></path>
+        </svg>
+        <span class="text-xs">Home</span>
+      </a>
+
+      <a
+        href="/#projects"
+        class="mobile-nav-link flex flex-col items-center gap-1 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-dark-800 transition-all"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+          ></path>
+        </svg>
+        <span class="text-xs">Projects</span>
+      </a>
+
+      <a
+        href="/#skills"
+        class="mobile-nav-link flex flex-col items-center gap-1 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-dark-800 transition-all"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+        </svg>
+        <span class="text-xs">Skills</span>
+      </a>
+
+      <a
+        href="/blog"
+        class="mobile-nav-link flex flex-col items-center gap-1 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-dark-800 transition-all"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+          ></path>
+        </svg>
+        <span class="text-xs">Blog</span>
+      </a>
+
+      <a
+        href="/#contact"
+        class="mobile-nav-link flex flex-col items-center gap-1 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-dark-800 transition-all"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          ></path>
+        </svg>
+        <span class="text-xs">Contact</span>
+      </a>
+    </div>
+  </div>
 </header>
+
+<script>
+  // Handle active state for navigation items
+  document.addEventListener("DOMContentLoaded", () => {
+    const currentPath = window.location.pathname;
+    const currentHash = window.location.hash;
+    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
+    mobileNavLinks.forEach((link: Element) => {
+      const href = link.getAttribute("href");
+
+      if (href) {
+        // Check if the link matches the current URL (path or hash)
+        if (
+          (href === "/" && currentPath === "/" && !currentHash) ||
+          (href !== "/" &&
+            (currentPath.includes(href) ||
+              (href.includes("#") &&
+                currentHash === href.substring(href.indexOf("#")))))
+        ) {
+          link.classList.add("active-nav-link");
+          link.classList.add(
+            "text-primary-600",
+            "dark:text-primary-400",
+            /*  "bg-gray-100",
+            "dark:bg-dark-800", */
+          );
+        }
+      }
+    });
+  });
+</script>
