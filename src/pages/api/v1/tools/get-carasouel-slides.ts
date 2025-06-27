@@ -32,8 +32,8 @@ export const POST: APIRoute = async ({ request }) => {
                 },
             ],
         })
-       // const parsedResult = JSON.parse(result);
-      //  console.log('API response:', parsedResult);
+        // const parsedResult = JSON.parse(result);
+        //  console.log('API response:', parsedResult);
         return new Response(
             JSON.stringify({
                 message: 'API call successful!',
@@ -55,11 +55,13 @@ export const POST: APIRoute = async ({ request }) => {
     }
 };
 
+const CLOUDFLARE_AI_KEY = import.meta.env.CLOUDFLARE_AI_KEY;
+
 async function run(model: string, input: object) {
     const response = await fetch(
         `https://api.cloudflare.com/client/v4/accounts/1956532513f840e226c7b62310878988/ai/run/${model}`,
         {
-            headers: { Authorization: "Bearer Eh4kwRh-b49l83Ui9fdkGwEYTzlyQ_QTnS5JuIXU", "Content-Type": "application/json", 'accept': 'application/json' },
+            headers: { Authorization: `Bearer ${CLOUDFLARE_AI_KEY}`, "Content-Type": "application/json", 'accept': 'application/json' },
             method: "POST",
             body: JSON.stringify(input),
         }
