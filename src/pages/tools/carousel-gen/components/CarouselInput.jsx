@@ -32,6 +32,41 @@ export default function CarouselInput({ values, onInputChange, onTemplateSelect,
         <option value="Montserrat">Montserrat</option>
         <option value="Lato">Lato</option>
       </select>
+      <div className="flex gap-4 mb-4">
+        <div className="flex flex-col">
+          <label className="text-white font-medium mb-1">Background color</label>
+          <input
+            type="color"
+            value={values.backgroundColor}
+            onChange={e => onInputChange({ target: { name: 'backgroundColor', value: e.target.value } })}
+            name="backgroundColor"
+            className="w-10 h-10 p-0 border-none bg-transparent"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="text-white font-medium mb-1">Text color</label>
+          <input
+            type="color"
+            value={values.textColor}
+            onChange={e => onInputChange({ target: { name: 'textColor', value: e.target.value } })}
+            name="textColor"
+            className="w-10 h-10 p-0 border-none bg-transparent"
+          />
+        </div>
+      </div>
+      <div className="flex items-center justify-between mb-4">
+        <label htmlFor="enhanceAI" className="text-white font-medium select-none">Enhance content with AI</label>
+        <button
+          type="button"
+          aria-pressed={!!values.enhanceAI}
+          onClick={() => onInputChange({ target: { name: 'enhanceAI', value: !values.enhanceAI } })}
+          className={`relative w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 ${values.enhanceAI ? 'bg-primary-600' : 'bg-dark-700'}`}
+        >
+          <span
+            className={`absolute left-1 top-1 w-4 h-4 rounded-full bg-white shadow-md transition-transform duration-200 ${values.enhanceAI ? 'translate-x-6' : ''}`}
+          />
+        </button>
+      </div>
       <button type="button" className="w-full py-3 rounded-lg bg-primary-600 text-white font-semibold text-lg hover:bg-primary-700 transition" onClick={onGenerate}>Generate slides</button>
     </div>
   );

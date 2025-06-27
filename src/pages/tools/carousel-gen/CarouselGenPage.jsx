@@ -4,7 +4,7 @@ import CarouselPreview from './components/CarouselPreview';
 
 
 export default function CarouselGenPage() {
-  const [input, setInput] = useState({ text: '', font: '' });
+  const [input, setInput] = useState({ text: '', font: '', backgroundColor: '#18181b', textColor: '#fff', enhanceAI: false });
   const [slides, setSlides] = useState([
     "The future of work is remote. It's not just a trend, it's a movement. More and more companies are embracing remote work as a way to attract top talent, boost productivity, and reduce costs. But what does this mean for you?",
     "How can you thrive in this new era of work? In this guide, we'll explore the benefits and challenges of remote work, share tips for staying productive and connected, and help you build a successful remote career.",
@@ -20,9 +20,9 @@ export default function CarouselGenPage() {
   };
 
   const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInput((prev) => ({ ...prev, text: value }));
-    updateSlides(value);
+    const { name, value } = e.target;
+    setInput((prev) => ({ ...prev, [name]: value }));
+    if (name === 'text') updateSlides(value);
   };
 
   const handleFontChange = (e) => {
