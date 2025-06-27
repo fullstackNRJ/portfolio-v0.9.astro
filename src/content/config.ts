@@ -6,7 +6,7 @@ const blog = defineCollection({
     title: z.string(),
     excerpt: z.string(),
     publishDate: z.date(),
-    image: z.string().url(),
+    image: z.string().url().optional(),
     tags: z.array(z.string()),
     author: z.string().default('Neeraj Mukta')
   })

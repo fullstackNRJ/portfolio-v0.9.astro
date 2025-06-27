@@ -48,7 +48,6 @@
         "title",
         "excerpt",
         "publishDate",
-        "image",
         "tags"
       ],
       "additionalProperties": false
