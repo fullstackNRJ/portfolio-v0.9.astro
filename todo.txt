@@ -1,0 +1,16 @@
+[todo]
+Get this new sections hoooked up
+ - Technical portfolio current one
+ - Product portfolio
+ - consultant portfolio
+ - neerajmukta.tv (Games, Puzzles, tools, Recommendations, Referrals)
+
+[done]
+/rss.xml
+Content feed
+/sitemap.xml
+Index structure
+/robots.txt
+Crawler permission file
+/llm.txt
+AI crawler signal

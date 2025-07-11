@@ -1,17 +1,23 @@
 ---
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import CursorEffect from '../components/CursorEffect.astro';
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import CursorEffect from "../components/CursorEffect.astro";
 import "../styles/global.css";
 
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  ogTitle?: string;
+  ogDescription?: string;
 }
 
-const { 
-  title, 
-  description = "Portfolio of Neeraj Mukta - Builder, Freelance Engineer and Futurist"
+const {
+  title,
+  description = "Portfolio of Neeraj Mukta - Builder, Freelance Engineer and Futurist",
+  ogImage = undefined,
+  ogTitle = undefined,
+  ogDescription = undefined,
 } = Astro.props;
 ---
 
@@ -24,60 +30,97 @@ const {
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={ogTitle ?? title} />
+    <meta property="og:description" content={ogDescription ?? description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle ?? title} />
+    <meta name="twitter:description" content={ogDescription ?? description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS Feed : Neeraj Mukta Portfolio"
+      href="/rss.xml"
+    />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS Feed : Neeraj Mukta Portfolio"
+      href="/feed.xml"
+    />
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="/sitemap.xml"
+    />
   </head>
-  <body class="min-h-screen bg-white dark:bg-dark-950 text-dark-950 dark:text-white">
+  <body
+    class="min-h-screen bg-white dark:bg-dark-950 text-dark-950 dark:text-white"
+  >
     <Navbar />
     <main>
       <slot />
     </main>
     <Footer />
     <CursorEffect />
-    
+
     <script>
       import { gsap } from "gsap";
       import { ScrollTrigger } from "gsap/ScrollTrigger";
       import Lenis from "@studio-freight/lenis";
-      
+
       // Register GSAP plugins
       gsap.registerPlugin(ScrollTrigger);
-      
+
       // Initialize smooth scrolling
       const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
-      
+
       function raf(time: number) {
         lenis.raf(time);
         requestAnimationFrame(raf);
       }
-      
+
       requestAnimationFrame(raf);
 
       // Theme toggle functionality
-      document.addEventListener('DOMContentLoaded', () => {
-        const themeToggleButtons = document.querySelectorAll('[data-theme-toggle]');
-        
+      document.addEventListener("DOMContentLoaded", () => {
+        const themeToggleButtons = document.querySelectorAll(
+          "[data-theme-toggle]",
+        );
+
         // Check system preferences or localStorage
-        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const storedTheme = localStorage.getItem('theme');
-        
-        if (storedTheme === 'dark' || (!storedTheme && userPrefersDark)) {
-          document.documentElement.classList.add('dark');
+        const userPrefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const storedTheme = localStorage.getItem("theme");
+
+        if (storedTheme === "dark" || (!storedTheme && userPrefersDark)) {
+          document.documentElement.classList.add("dark");
         }
-        
-        themeToggleButtons.forEach(button => {
-          button.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            
+
+        themeToggleButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            document.documentElement.classList.toggle("dark");
+
             // Update localStorage
-            if (document.documentElement.classList.contains('dark')) {
-              localStorage.setItem('theme', 'dark');
+            if (document.documentElement.classList.contains("dark")) {
+              localStorage.setItem("theme", "dark");
             } else {
-              localStorage.setItem('theme', 'light');
+              localStorage.setItem("theme", "light");
             }
           });
         });
