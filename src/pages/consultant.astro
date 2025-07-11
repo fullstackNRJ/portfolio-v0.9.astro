@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+export const prerender = true;
+---
+
+<Layout title="Consultant Portfolio">
+  <div
+    class="min-h-[60vh] flex flex-col items-center justify-center text-center animate-fade-in-up"
+  >
+    <h1
+      class="text-5xl font-extrabold mb-4 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x"
+    >
+      Consultant Portfolio
+    </h1>
+    <p class="text-lg mb-8 text-gray-700 dark:text-gray-200">
+      Consulting case studies, client success stories, and animated
+      testimonials.
+    </p>
+    <div class="w-full max-w-2xl space-y-6 animate-slide-in">
+      <div
+        class="bg-white/90 dark:bg-dark-800/90 rounded-xl p-6 shadow-xl hover:scale-105 transition-transform duration-300"
+      >
+        <h2 class="text-2xl font-bold mb-2">Case Study</h2>
+        <p class="mb-2">
+          A dynamic walkthrough of a consulting engagement, with animated
+          timelines and results.
+        </p>
+        <a
+          href="#"
+          class="text-primary-600 dark:text-primary-400 underline hover:scale-110 transition-transform"
+          >View Details</a
+        >
+      </div>
+      <!-- More animated consultant cards -->
+    </div>
+  </div>
+</Layout>
+<style>
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-in-up {
+    animation: fade-in-up 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  @keyframes gradient-x {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  .animate-gradient-x {
+    background-size: 200% 200%;
+    animation: gradient-x 3s ease-in-out infinite;
+  }
+  @keyframes slide-in {
+    0% {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .animate-slide-in {
+    animation: slide-in 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+</style>

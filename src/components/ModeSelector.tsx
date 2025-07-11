@@ -6,26 +6,30 @@ export default function ModeSelector() {
   const $mode = useStore(portfolioMode);
   const [isOpen, setIsOpen] = useState(false);
 
-  const modes: { id: PortfolioMode; label: string; description: string }[] = [
+  const modes: { id: PortfolioMode; label: string; description: string; path: string }[] = [
     {
       id: 'basic',
-      label: 'Basic',
-      description: 'Clean and simple portfolio presentation'
+      label: 'Technical',
+      description: 'Technical deep-dive with code samples',
+      path: '/technical'
     },
     {
-      id: 'business',
-      label: 'Business',
-      description: 'Professional focus with achievements'
+      id: 'business-product',
+      label: 'Business/Product',
+      description: 'Professional focus with achievements',
+      path: '/business-product'
     },
     {
-      id: 'dev',
-      label: 'Developer',
-      description: 'Technical deep-dive with code samples'
+      id: 'consultant',
+      label: 'Consultant',
+      description: 'Consulting-oriented with case studies',
+      path: '/consultant'
     },
     {
       id: 'story',
       label: 'Story',
-      description: 'Journey-focused narrative presentation'
+      description: 'Journey-focused narrative presentation',
+      path: '/neerajmukta-tv'
     }
   ];
 
@@ -45,21 +49,21 @@ export default function ModeSelector() {
         <div className="absolute right-0 mt-2 w-72 rounded-xl bg-white dark:bg-dark-900 shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-lg">
           <div className="p-2">
             {modes.map((mode) => (
-              <button
+              <a
                 key={mode.id}
+                href={mode.path}
                 onClick={() => {
                   setPortfolioMode(mode.id);
                   setIsOpen(false);
                 }}
-                className={`w-full text-left px-4 py-3 rounded-lg transition-all ${
-                  $mode === mode.id
-                    ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
-                    : 'hover:bg-gray-50 dark:hover:bg-dark-800'
-                }`}
+                className={`block w-full text-left px-4 py-3 rounded-lg transition-all ${$mode === mode.id
+                  ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                  : 'hover:bg-gray-50 dark:hover:bg-dark-800'
+                  }`}
               >
                 <div className="font-medium">{mode.label}</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">{mode.description}</div>
-              </button>
+              </a>
             ))}
           </div>
         </div>

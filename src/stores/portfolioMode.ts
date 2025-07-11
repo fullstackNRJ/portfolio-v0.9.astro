@@ -1,6 +1,6 @@
 import { atom } from 'nanostores';
 
-export type PortfolioMode = 'basic' | 'business' | 'dev' | 'story';
+export type PortfolioMode = 'basic' | 'business' | 'business-product' | 'consultant' | 'dev' | 'story';
 
 export const portfolioMode = atom<PortfolioMode>('basic');
 
