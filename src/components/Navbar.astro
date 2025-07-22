@@ -32,6 +32,13 @@ const navItems = [
               </a>
             ))
           }
+          <a
+            href="/my-docs"
+            id="my-docs-link"
+            class="text-dark-800 dark:text-dark-100 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors duration-200 hidden"
+          >
+            My Docs
+          </a>
         </div>
 
         <div class="flex items-center gap-4">
@@ -217,5 +224,15 @@ const navItems = [
         }
       }
     });
+
+    // Check if user is authenticated and show My Docs link
+    const authCookie = document.cookie.split(';').find(row => row.trim().startsWith('authenticated='));
+    if (authCookie) {
+      // User has authentication marker, show My Docs link
+      const myDocsLink = document.getElementById('my-docs-link');
+      if (myDocsLink) {
+        myDocsLink.classList.remove('hidden');
+      }
+    }
   });
 </script>

@@ -42,10 +42,11 @@ export const GET: APIRoute = async ({ request }) => {
     console.error('Error fetching files:', error);
     return new Response(
       JSON.stringify({ 
-        message: 'Error fetching files',
-        files: []
+        message: 'Unable to connect to file storage service. This may be a temporary issue.',
+        files: [],
+        error: 'CONNECTION_ERROR'
       }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   }
 };

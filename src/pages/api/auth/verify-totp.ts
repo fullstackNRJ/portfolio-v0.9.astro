@@ -53,6 +53,15 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       path: '/'
     });
 
+    // Set a separate cookie for client-side navigation detection (non-httpOnly)
+    cookies.set('authenticated', 'true', {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      expires: expiresAt,
+      path: '/'
+    });
+
     // In production, store session in database/KV store
     // For demo, we'll just use the session ID as proof of authentication
 

@@ -7,6 +7,11 @@ export const POST: APIRoute = async ({ cookies }) => {
       path: '/'
     });
 
+    // Clear authenticated cookie
+    cookies.delete('authenticated', {
+      path: '/'
+    });
+
     return new Response(
       JSON.stringify({ message: 'Logged out successfully' }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }

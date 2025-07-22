@@ -29,6 +29,11 @@ export default function FileManager({ onLogout }: FileManagerProps) {
       
       if (response.ok) {
         setFiles(data.files || []);
+        if (data.error === 'CONNECTION_ERROR') {
+          setError('File storage service temporarily unavailable. Upload functionality may be limited.');
+        } else {
+          setError('');
+        }
       } else {
         setError(data.message || 'Failed to fetch files');
       }
