@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FileManager from '../../components/FileManager';
+
+// Check authentication
+const sessionCookie = Astro.cookies.get('session');
+if (!sessionCookie?.value) {
+  return Astro.redirect('/my-docs/login');
+}
+
+// Verify session is valid
+try {
+  const response = await fetch(`${Astro.url.origin}/api/auth/verify-session`, {
+    headers: {
+      'Cookie': `session=${sessionCookie.value}`
+    }
+  });
+  
+  if (!response.ok) {
+    return Astro.redirect('/my-docs/login');
+  }
+} catch (error) {
+  return Astro.redirect('/my-docs/login');
+}
+
+export const prerender = false;
+---
+
+<Layout title="My Documents - Secure File Storage">
+  <div class="section">
+    <FileManager 
+      client:load 
+      onLogout={() => window.location.href = '/my-docs/login'} 
+    />
+  </div>
+</Layout>
+
+<script>
+  // Add logout function to window for React component
+  window.logout = () => {
+    window.location.href = '/my-docs/login';
+  };
+</script>
