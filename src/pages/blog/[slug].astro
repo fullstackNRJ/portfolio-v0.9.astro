@@ -124,7 +124,7 @@ const readingTime = calculateReadingTime(plainText);
                 </div>
             </aside>
         </div>
-        {/* Floating Share Button with Copy Link */}
+        {/* Floating Action Buttons */}
         <div class="fixed bottom-8 left-8 z-50 flex flex-col items-start gap-3">
             <button
                 onclick="navigator.share ? navigator.share({ title: document.title, url: window.location.href }) : window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=' + encodeURIComponent(document.title), '_blank')"
@@ -175,6 +175,29 @@ const readingTime = calculateReadingTime(plainText);
                 </svg>
                 <span class="hidden md:inline">Copy Link</span>
             </button>
+            <a
+                href={`/api/download/${typedPost.slug}`}
+                download
+                title="Download this blog post"
+                class="bg-green-600 hover:bg-green-700 text-white rounded-full shadow-lg p-4 flex items-center gap-2 transition-colors duration-200"
+                style="box-shadow: 0 4px 24px rgba(0,0,0,0.15);"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                    ></path>
+                </svg>
+                <span class="hidden md:inline">Download</span>
+            </a>
         </div>
     </section>
 </Layout>
