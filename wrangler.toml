@@ -1,0 +1,16 @@
+name = "neeraj-mukta-portfolio"
+main = "./dist/index.js"
+compatibility_date = "2023-12-18"
+
+# KV Namespaces for session storage
+[[kv_namespaces]]
+binding = "SESSION"
+id = "2f2afe0bb37c482692a0f4f319046a71"
+preview_id = "6039c7e1d93f49528d1b6fa57b922160"
+
+# Optional: Environment variables
+[env.production.vars]
+ASSETS_API_KEY = "blog-api-0c2978426462a46a7ebb7e390840ad03162fcb2563fd0388b4157d5c96701ccf"
+
+[env.preview.vars]
+ASSETS_API_KEY = "blog-api-0c2978426462a46a7ebb7e390840ad03162fcb2563fd0388b4157d5c96701ccf"

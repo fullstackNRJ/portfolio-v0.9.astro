@@ -1,0 +1,67 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Secure access to personal documents",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen bg-white dark:bg-dark-950 text-dark-950 dark:text-white">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-dark-950 dark:to-dark-900">
+      <div class="w-full max-w-md">
+        <div class="text-center mb-8">
+          <a href="/" class="text-4xl font-display font-bold gradient-text inline-block mb-4">NM</a>
+          <h1 class="text-2xl font-display font-bold text-dark-900 dark:text-white">{title}</h1>
+          <p class="text-dark-600 dark:text-dark-300 mt-2">{description}</p>
+        </div>
+        
+        <main>
+          <slot />
+        </main>
+        
+        <div class="text-center mt-8">
+          <a href="/" class="text-sm text-dark-600 dark:text-dark-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+            ← Back to Portfolio
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Theme toggle functionality
+      document.addEventListener("DOMContentLoaded", () => {
+        // Check system preferences or localStorage
+        const userPrefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const storedTheme = localStorage.getItem("theme");
+
+        if (storedTheme === "dark" || (!storedTheme && userPrefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      });
+    </script>
+  </body>
+</html>

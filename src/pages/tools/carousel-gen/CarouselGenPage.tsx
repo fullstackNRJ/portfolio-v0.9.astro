@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import CarouselInput from './components/CarouselInput';
-import CarouselPreview from './components/CarouselPreview';
+import CarouselInput from './components/_CarouselInput';
+import CarouselPreview from './components/_CarouselPreview';
 
 
 export default function CarouselGenPage() {
@@ -36,17 +36,17 @@ export default function CarouselGenPage() {
     <div className="min-h-screen bg-dark-900 flex items-center justify-center p-6">
       <div className="w-full max-w-6xl rounded-3xl overflow-hidden flex flex-col md:flex-row items-center shadow-2xl">
         <div className="w-full md:w-1/2 px-8 ">
-          <CarouselInput 
+          <CarouselInput
             values={input}
             onInputChange={handleInputChange}
-            onTemplateSelect={() => {}} 
-            onModeToggle={() => {}} 
+            onTemplateSelect={() => { }}
+            onModeToggle={() => { }}
             onFontChange={handleFontChange}
-            onGenerate={() => {}} 
+            onGenerate={() => { }}
           />
         </div>
         <div className="w-full md:w-1/2 ">
-          <CarouselPreview 
+          <CarouselPreview
             slides={slides}
             currentSlide={currentSlide}
             onPrev={handlePrev}

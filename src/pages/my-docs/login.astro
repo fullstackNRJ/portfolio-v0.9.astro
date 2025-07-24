@@ -1,0 +1,29 @@
+---
+import AuthLayout from '../../layouts/AuthLayout.astro';
+import AuthForm from '../../components/AuthForm';
+
+// Check if user is already authenticated
+const sessionCookie = Astro.cookies.get('session');
+if (sessionCookie?.value) {
+  // Verify session is still valid
+  try {
+    const response = await fetch(`${Astro.url.origin}/api/auth/verify-session`, {
+      headers: {
+        'Cookie': `session=${sessionCookie.value}`
+      }
+    });
+    
+    if (response.ok) {
+      return Astro.redirect('/my-docs');
+    }
+  } catch (error) {
+    // Session invalid, continue to login
+  }
+}
+
+export const prerender = false;
+---
+
+<AuthLayout title="Access My Documents" description="Secure authentication required">
+  <AuthForm client:load />
+</AuthLayout>
