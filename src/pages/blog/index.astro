@@ -36,7 +36,7 @@ const posts = await getCollection("blog");
                   <p class="text-dark-600 dark:text-dark-400 mb-4">
                     {post.data.excerpt}
                   </p>
-                  <div class="flex items-center text-sm text-dark-500 dark:text-dark-400">
+                  <div class="flex items-center justify-between text-sm text-dark-500 dark:text-dark-400">
                     <time datetime={post.data.publishDate.toISOString()}>
                       {new Date(post.data.publishDate).toLocaleDateString(
                         "en-US",
@@ -47,6 +47,28 @@ const posts = await getCollection("blog");
                         },
                       )}
                     </time>
+                    <a
+                      href={`/api/download/${post.slug}`}
+                      download
+                      title="Download this blog post"
+                      class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+                      onclick="event.stopPropagation();"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        class="w-5 h-5"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                        ></path>
+                      </svg>
+                    </a>
                   </div>
                 </div>
               </a>
