@@ -40,6 +40,82 @@
           "type": "string",
           "default": "Neeraj Mukta"
         },
+        "readingTime": {
+          "type": "number"
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": [
+            "beginner",
+            "intermediate",
+            "advanced"
+          ],
+          "default": "intermediate"
+        },
+        "category": {
+          "type": "string",
+          "default": "Technology"
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "enableVoiceReader": {
+          "type": "boolean",
+          "default": true
+        },
+        "enableComments": {
+          "type": "boolean",
+          "default": true
+        },
+        "seoKeywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "socialImage": {
+          "type": "string",
+          "format": "uri"
+        },
+        "canonicalUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "lastModified": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "aiSummary": {
+          "type": "string"
+        },
+        "aiHashtags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "relatedPosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
         "$schema": {
           "type": "string"
         }
