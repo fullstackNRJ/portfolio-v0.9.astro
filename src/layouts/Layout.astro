@@ -2,7 +2,9 @@
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import CursorEffect from "../components/CursorEffect.astro";
+import AccessibilityPanel from "../components/AccessibilityPanel.tsx";
 import "../styles/global.css";
+import "../styles/accessibility.css";
 
 interface Props {
   title: string;
@@ -25,27 +27,48 @@ const {
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
+    
+    <!-- Accessibility Meta Tags -->
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1e40af" media="(prefers-color-scheme: dark)" />
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content={ogTitle ?? title} />
     <meta property="og:description" content={ogDescription ?? description} />
     {ogImage && <meta property="og:image" content={ogImage} />}
+    
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={ogTitle ?? title} />
     <meta name="twitter:description" content={ogDescription ?? description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
+    
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Font loading with display=swap for better performance -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
+    
+    <!-- Dyslexia-friendly font (optional) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    
+    <!-- RSS and Sitemap -->
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -64,16 +87,59 @@ const {
       title="Sitemap"
       href="/sitemap.xml"
     />
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Neeraj Mukta's Tech Blog",
+        "description": "Technical insights, tutorials, and innovations in web development and AI",
+        "url": "https://neerajmukta.com/blog",
+        "author": {
+          "@type": "Person",
+          "name": "Neeraj Mukta",
+          "url": "https://neerajmukta.com"
+        },
+        "accessibilityFeature": [
+          "audioDescription",
+          "highContrast",
+          "largePrint",
+          "readingOrder",
+          "structuralNavigation",
+          "tableOfContents"
+        ]
+      }
+    </script>
   </head>
   <body
     class="min-h-screen bg-white dark:bg-dark-950 text-dark-950 dark:text-white"
   >
+    <!-- Skip to main content link for accessibility -->
+    <a 
+      href="#main-content" 
+      class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded z-[9999]"
+    >
+      Skip to main content
+    </a>
+
     <Navbar />
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <Footer />
     <CursorEffect />
+
+    <!-- Accessibility Panel -->
+    <AccessibilityPanel client:load />
+
+    <!-- Enhanced ARIA live region for announcements -->
+    <div 
+      id="aria-live-region" 
+      aria-live="polite" 
+      aria-atomic="true" 
+      class="sr-only"
+    ></div>
 
     <script>
       import { gsap } from "gsap";
