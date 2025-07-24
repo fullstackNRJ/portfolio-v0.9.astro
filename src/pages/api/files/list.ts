@@ -18,10 +18,11 @@ export const GET: APIRoute = async ({ request }) => {
     }
 
     // Fetch files from the API
-    const response = await fetch('https://assets.themvpco.one/docs', {
+    const response = await fetch('https://assets.themvpco.one/api/blogs?page=1&limit=10', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
+        'X-API-KEY': import.meta.env.ASSETS_API_KEY
       }
     });
 
@@ -32,7 +33,7 @@ export const GET: APIRoute = async ({ request }) => {
     const files = await response.json();
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         files: files || [],
         message: 'Files retrieved successfully'
       }),
@@ -41,7 +42,7 @@ export const GET: APIRoute = async ({ request }) => {
   } catch (error) {
     console.error('Error fetching files:', error);
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         message: 'Unable to connect to file storage service. This may be a temporary issue.',
         files: [],
         error: 'CONNECTION_ERROR'

@@ -2,11 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 interface FileItem {
   id: string;
-  name: string;
-  size: number;
-  type: string;
-  url: string;
-  uploadedAt: string;
+  name?: string;
+  title?: string;
+  filename?: string;
+  size?: number;
+  type?: string;
+  url?: string;
+  uploadedAt?: string;
 }
 
 interface FileManagerProps {
@@ -19,6 +21,7 @@ export default function FileManager({ onLogout }: FileManagerProps) {
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
   const fetchFiles = useCallback(async () => {
@@ -26,19 +29,46 @@ export default function FileManager({ onLogout }: FileManagerProps) {
       setLoading(true);
       const response = await fetch('/api/files/list');
       const data = await response.json();
-      
+
       if (response.ok) {
-        setFiles(data.files || []);
+        // Debug: Log the API response structure
+        console.log('API Response:', data);
+
+        // Ensure files is always an array
+        let filesArray = [];
+        if (Array.isArray(data.files)) {
+          filesArray = data.files;
+        } else if (Array.isArray(data)) {
+          filesArray = data;
+        } else if (data.files && Array.isArray(data.files.data)) {
+          filesArray = data.files.data;
+        } else if (data.files && Array.isArray(data.files.blogs)) {
+          filesArray = data.files.blogs;
+        }
+
+        console.log('Processed files array:', filesArray);
+        console.log('First file structure:', filesArray[0]);
+
+        // Transform the data to ensure consistent structure
+        const transformedFiles = transformApiDataToFiles(filesArray);
+        console.log('Transformed files:', transformedFiles);
+
+        setFiles(transformedFiles);
         if (data.error === 'CONNECTION_ERROR') {
           setError('File storage service temporarily unavailable. Upload functionality may be limited.');
+          setSuccessMessage('');
         } else {
           setError('');
         }
       } else {
         setError(data.message || 'Failed to fetch files');
+        setSuccessMessage('');
+        setFiles([]);
       }
     } catch (err) {
       setError('Failed to fetch files');
+      setSuccessMessage('');
+      setFiles([]);
       console.error('Fetch files error:', err);
     } finally {
       setLoading(false);
@@ -52,6 +82,7 @@ export default function FileManager({ onLogout }: FileManagerProps) {
   const handleFileUpload = async (file: File) => {
     setUploading(true);
     setError('');
+    setSuccessMessage('');
 
     try {
       const formData = new FormData();
@@ -67,11 +98,16 @@ export default function FileManager({ onLogout }: FileManagerProps) {
       if (response.ok) {
         await fetchFiles(); // Refresh file list
         setError('');
+        setSuccessMessage(`File "${file.name}" uploaded successfully!`);
+        // Clear success message after 5 seconds
+        setTimeout(() => setSuccessMessage(''), 5000);
       } else {
         setError(data.message || 'Upload failed');
+        setSuccessMessage('');
       }
     } catch (err) {
       setError('Upload failed. Please try again.');
+      setSuccessMessage('');
       console.error('Upload error:', err);
     } finally {
       setUploading(false);
@@ -123,6 +159,35 @@ export default function FileManager({ onLogout }: FileManagerProps) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
+  const getFileName = (file: FileItem): string => {
+    return file.name || file.title || file.filename || 'Untitled';
+  };
+
+  const getFileSize = (file: FileItem): number => {
+    return file.size || 0;
+  };
+
+  const getFileType = (file: FileItem): string => {
+    return file.type || 'application/octet-stream';
+  };
+
+  const getFileUrl = (file: FileItem): string => {
+    return file.url || '#';
+  };
+
+  const transformApiDataToFiles = (apiData: any[]): FileItem[] => {
+    return apiData.map((item, index) => ({
+      id: item.id || item._id || `file-${index}`,
+      name: item.name || item.title || item.filename,
+      title: item.title,
+      filename: item.filename,
+      size: item.size || 0,
+      type: item.type || item.mimeType || 'application/octet-stream',
+      url: item.url || item.downloadUrl || item.link || '#',
+      uploadedAt: item.uploadedAt || item.createdAt || item.created_at || new Date().toISOString()
+    }));
+  };
+
   const getFileIcon = (type: string) => {
     if (type.startsWith('image/')) {
       return (
@@ -145,9 +210,13 @@ export default function FileManager({ onLogout }: FileManagerProps) {
     );
   };
 
-  const filteredFiles = files.filter(file =>
-    file.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredFiles = (Array.isArray(files) ? files : [])
+    .filter(file => file && typeof file === 'object' && file.id) // Ensure file object is valid
+    .filter(file => {
+      // Handle different possible name properties and ensure they exist
+      const fileName = getFileName(file);
+      return fileName.toLowerCase().includes(searchTerm.toLowerCase());
+    });
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -169,7 +238,7 @@ export default function FileManager({ onLogout }: FileManagerProps) {
       </div>
 
       {/* Upload Area */}
-      <div 
+      <div
         className={`card p-8 mb-8 text-center transition-all ${dragOver ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20' : ''}`}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
@@ -209,6 +278,12 @@ export default function FileManager({ onLogout }: FileManagerProps) {
       {error && (
         <div className="p-4 text-sm text-red-700 bg-red-50 dark:bg-red-900/20 dark:text-red-400 rounded-lg mb-6">
           {error}
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="p-4 text-sm text-green-700 bg-green-50 dark:bg-green-900/20 dark:text-green-400 rounded-lg mb-6">
+          {successMessage}
         </div>
       )}
 
@@ -254,22 +329,22 @@ export default function FileManager({ onLogout }: FileManagerProps) {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   <div className="text-primary-600 dark:text-primary-400">
-                    {getFileIcon(file.type)}
+                    {getFileIcon(getFileType(file))}
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm font-medium text-dark-900 dark:text-white truncate">
-                      {file.name}
+                      {getFileName(file)}
                     </h3>
                     <p className="text-xs text-dark-500 dark:text-dark-400">
-                      {formatFileSize(file.size)}
+                      {formatFileSize(getFileSize(file))}
                     </p>
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex space-x-2">
                 <a
-                  href={file.url}
+                  href={getFileUrl(file)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium py-2 px-3 border border-primary-200 dark:border-primary-800 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"

@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ request }) => {
     // Get form data
     const formData = await request.formData();
     const file = formData.get('file') as File;
-    
+
     if (!file) {
       return new Response(
         JSON.stringify({ message: 'No file provided' }),
@@ -42,9 +42,12 @@ export const POST: APIRoute = async ({ request }) => {
     uploadFormData.append('file', file);
 
     // Upload to the external API
-    const uploadResponse = await fetch('https://assets.themvpco.one/docs', {
+    const uploadResponse = await fetch('https://assets.themvpco.one/api/upload/markdown', {
       method: 'POST',
       body: uploadFormData,
+      headers: {
+        'X-API-KEY': import.meta.env.ASSETS_API_KEY
+      }
     });
 
     if (!uploadResponse.ok) {
@@ -56,7 +59,7 @@ export const POST: APIRoute = async ({ request }) => {
     const result = await uploadResponse.json();
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         message: 'File uploaded successfully',
         file: result
       }),
@@ -65,7 +68,7 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (error) {
     console.error('Upload error:', error);
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         message: 'Upload failed. Please try again.',
         error: error instanceof Error ? error.message : 'Unknown error'
       }),
