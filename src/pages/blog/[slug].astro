@@ -1,29 +1,71 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-
-import { getEntry, render, type CollectionEntry } from "astro:content";
+import type { BlogContent } from "../api/blogs/[slug].ts";
 
 const { slug } = Astro.params;
-const post = await getEntry("blog", slug as string);
-if (!post) {
+
+if (!slug) {
+    throw new Error("Slug is required");
+}
+
+// Fetch blog content from our API endpoint
+let post: BlogContent | null = null;
+let error = '';
+
+try {
+  const response = await fetch(`${Astro.url.origin}/api/blogs/${slug}`);
+  if (response.ok) {
+    post = await response.json();
+  } else if (response.status === 404) {
     throw new Error(`Post not found: ${slug}`);
+  } else {
+    error = 'Failed to fetch blog content';
+    console.error('Failed to fetch blog content:', response.status, response.statusText);
+  }
+} catch (e) {
+  if (e instanceof Error && e.message.includes('not found')) {
+    throw e; // Re-throw 404 errors
+  }
+  error = 'Network error while fetching blog content';
+  console.error('Error fetching blog content:', e);
 }
-const typedPost = post as CollectionEntry<"blog">;
 
-const { Content, headings } = await render(typedPost);
-
-// Simple reading time calculation (average 200 words per minute)
-function calculateReadingTime(text: string, wordsPerMinute = 50): number {
-    const words = text.trim().split(/\s+/).length;
-    return Math.max(5, Math.round(words / wordsPerMinute));
+if (!post && !error) {
+  throw new Error(`Post not found: ${slug}`);
 }
-
-// Get plain text from MDX/Markdown content
-const plainText = Content?.toString ? Content.toString() : "";
-const readingTime = calculateReadingTime(plainText);
 ---
 
-<Layout title={`${typedPost.data.title} | Neeraj Mukta`}>
+<Layout title={post ? `${post.title} | Neeraj Mukta` : "Blog Post | Neeraj Mukta"}>
+    {error && (
+        <section class="pt-32 pb-16 min-h-[70vh] flex items-center justify-center">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-red-600 dark:text-red-400 mb-4">
+                    Unable to Load Blog Post
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">{error}</p>
+                <a
+                    href="/blog"
+                    class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg transition-colors"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        class="w-5 h-5"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+                    </svg>
+                    Back to Blogs
+                </a>
+            </div>
+        </section>
+    )}
+    {post && (
     <section
         class="pt-16 pb-16 min-h-[70vh] flex justify-center prose prose-neutral max-w-none dark:prose-invert animate-fade-in-up"
     >
@@ -59,19 +101,21 @@ const readingTime = calculateReadingTime(plainText);
             >
                 <div class="flex flex-col items-center mb-8">
                     <img
-                        src={typedPost.data.image}
-                        alt={typedPost.data.title}
+                        src={post.image}
+                        alt={post.title}
                         class="w-full h-56 object-cover mb-4 shadow-md border-4 border-primary-500"
                     />
                     <h1
                         class="text-4xl md:text-5xl font-display font-bold mb-2 text-center"
                     >
-                        {typedPost.data.title}
+                        {post.title}
                     </h1>
 
                     <div class="flex gap-2 mb-2 flex-wrap justify-center">
                         {
-                            typedPost.data.tags.map((tag: string) => (
+                            post.aiHashtags?.map((tag: string) => (
+                                <span class="skill-badge">{tag}</span>
+                            )) || post.tags.map((tag: string) => (
                                 <span class="skill-badge">{tag}</span>
                             ))
                         }
@@ -80,13 +124,9 @@ const readingTime = calculateReadingTime(plainText);
                     <div
                         class="flex items-center gap-4 mb-2 text-dark-500 dark:text-dark-400 text-sm"
                     >
-                        <time
-                            datetime={typedPost.data.publishDate.toISOString()}
-                        >
+                        <time datetime={post.publishDate}>
                             {
-                                new Date(
-                                    typedPost.data.publishDate,
-                                ).toLocaleDateString("en-US", {
+                                new Date(post.publishDate).toLocaleDateString("en-US", {
                                     year: "numeric",
                                     month: "long",
                                     day: "numeric",
@@ -94,16 +134,15 @@ const readingTime = calculateReadingTime(plainText);
                             }
                         </time>
                         <span aria-hidden="true">•</span>
-                        <span>{readingTime} min read</span>
+                        <span>{post.readingTime} min read</span>
                     </div>
                 </div>
                 <p
                     class="text-lg text-dark-600 dark:text-dark-400 mb-8 text-center"
                 >
-                    {typedPost.data.excerpt}
+                    {post.aiSummary || post.excerpt}
                 </p>
-                <article class="prose prose-lg dark:prose-invert mx-auto">
-                    <Content />
+                <article class="prose prose-lg dark:prose-invert mx-auto" set:html={post.htmlContent}>
                 </article>
             </div>
             {/* Sticky Ads Sidebar */}
@@ -177,4 +216,5 @@ const readingTime = calculateReadingTime(plainText);
             </button>
         </div>
     </section>
+    )}
 </Layout>

@@ -1,8 +1,24 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getCollection } from "astro:content";
+import type { BlogListItem, BlogListResponse } from "../api/blogs/index.ts";
 
-const posts = await getCollection("blog");
+// Fetch blogs from our API endpoint
+let posts: BlogListItem[] = [];
+let error = '';
+
+try {
+  const response = await fetch(`${Astro.url.origin}/api/blogs`);
+  if (response.ok) {
+    const data: BlogListResponse = await response.json();
+    posts = data.blogs;
+  } else {
+    error = 'Failed to fetch blogs';
+    console.error('Failed to fetch blogs:', response.status, response.statusText);
+  }
+} catch (e) {
+  error = 'Network error while fetching blogs';
+  console.error('Error fetching blogs:', e);
+}
 ---
 
 <Layout title="Blog | Neeraj Mukta">
@@ -13,39 +29,52 @@ const posts = await getCollection("blog");
       </h1>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {error && (
+          <div class="col-span-full text-center text-red-600 dark:text-red-400 p-8">
+            <p class="text-lg font-semibold">Unable to load blogs</p>
+            <p class="text-sm">{error}</p>
+          </div>
+        )}
+        {!error && posts.length === 0 && (
+          <div class="col-span-full text-center text-gray-600 dark:text-gray-400 p-8">
+            <p class="text-lg">No blogs available at the moment.</p>
+          </div>
+        )}
         {
           posts.map((post) => (
             <article class="card group">
               <a href={`/blog/${post.slug}`}>
                 <div class="relative overflow-hidden pt-[56.25%]">
                   <img
-                    src={post.data.image}
-                    alt={post.data.title}
+                    src={post.image}
+                    alt={post.title}
                     class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div class="p-6">
                   <div class="flex gap-2 mb-3 flex-wrap">
-                    {post.data.tags.map((tag) => (
+                    {post.tags.map((tag) => (
                       <span class="skill-badge">#{tag}</span>
                     ))}
                   </div>
                   <h2 class="text-xl font-bold mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                    {post.data.title}
+                    {post.title}
                   </h2>
                   <p class="text-dark-600 dark:text-dark-400 mb-4">
-                    {post.data.excerpt}
+                    {post.excerpt}
                   </p>
                   <div class="flex items-center text-sm text-dark-500 dark:text-dark-400">
-                    <time datetime={post.data.publishDate.toISOString()}>
-                      {new Date(post.data.publishDate).toLocaleDateString(
-                        "en-US",
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        },
-                      )}
+                    <time datetime={post.publishDate}>
+                      {
+                        new Date(post.publishDate).toLocaleDateString(
+                          "en-US",
+                          {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          },
+                        )
+                      }
                     </time>
                   </div>
                 </div>
