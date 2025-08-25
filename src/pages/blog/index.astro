@@ -2,17 +2,18 @@
 import BlogCard from "../../components/BlogCard.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import { calculateReadingTime } from "../../utils";
 
 // Debugging blog loading issue
 const posts = await getCollection("blog");
 
-if (!posts || posts.length === 0) {
+/* if (!posts || posts.length === 0) {
   console.error(
     "No blog posts found. Ensure the content collection is properly configured and contains valid entries.",
   );
 } else {
   console.log("Loaded blog posts:", posts);
-}
+} */
 
 // Enhanced metadata for SEO
 const pageTitle = "Blog | Neeraj Mukta - Tech Insights & Tutorials";
@@ -203,6 +204,8 @@ const pageDescription =
               title={post.data.title}
               excerpt={post.data.excerpt}
               author={post.data.author}
+              publishDate={post.data.publishDate}
+              link={`/blog/${post.slug}`}
               views={post.data?.views || Math.floor(Math.random() * 100)}
             />
           ))
