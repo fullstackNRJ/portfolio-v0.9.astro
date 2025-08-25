@@ -374,18 +374,23 @@ const aiSummary = generateAISummary(
                     class="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/20 rounded-xl shadow-lg p-6"
                 >
                     <h3 class="text-lg font-semibold mb-2">Stay Updated</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    <p
+                        id="newsletter-description"
+                        class="text-sm text-gray-600 dark:text-gray-400 mb-4"
+                    >
                         Get the latest tech insights and tutorials delivered to
                         your inbox.
                     </p>
-                    <div class="flex gap-2">
+                    <div id="newsletter-form" class="flex gap-2">
                         <input
+                            id="newsletter-email-input"
                             type="email"
                             placeholder="Enter your email"
                             class="flex-1 px-3 py-2 rounded border border-gray-300 dark:border-dark-600 dark:bg-dark-700 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                             aria-label="Email address for newsletter"
                         />
                         <button
+                            id="newsletter-subscribe-button"
                             class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors focus:ring-2 focus:ring-primary-500"
                         >
                             Subscribe
@@ -494,6 +499,47 @@ const aiSummary = generateAISummary(
                 }
             });
         });
+
+        // Newsletter subscription button (placeholder functionality)
+        document
+            .getElementById("newsletter-subscribe-button")
+            ?.addEventListener("click", () => {
+                const emailInput = document.getElementById(
+                    "newsletter-email-input",
+                );
+                const error = document.createElement("div");
+                error.className = "text-red-600 text-sm mt-2 ";
+                error.textContent = "Please enter a valid email address.";
+                // Clear any existing error messages
+                emailInput &&
+                    emailInput.parentElement?.parentElement
+                        ?.querySelectorAll(".text-red-600")
+                        .forEach((el) => el.remove());
+
+                if (
+                    emailInput &&
+                    (emailInput as HTMLInputElement).value === ""
+                ) {
+                    // alert("Please enter a valid email address.");
+
+                    emailInput.parentElement?.parentElement?.appendChild(error);
+
+                    emailInput.focus();
+                    return;
+                }
+                //update newsletter description text
+                const description = document.getElementById(
+                    "newsletter-description",
+                );
+                if (description) {
+                    description.textContent = "Thank you for subscribing!";
+                }
+                //hide the form
+                const form = document.getElementById("newsletter-form");
+                if (form) {
+                    form.style.display = "none";
+                }
+            });
     </script>
 
     {/* High Contrast CSS */}
@@ -555,4 +601,9 @@ const aiSummary = generateAISummary(
             }
         }
     </style>
+
+    {/* Open Graph Meta Tags */}
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:image" content={typedPost.data.image} />
+    <meta property="og:logo" content="/images/themvpco.jpeg" />
 </Layout>

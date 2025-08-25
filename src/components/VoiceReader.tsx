@@ -14,7 +14,7 @@ export default function VoiceReader({ content, title, className = '' }: VoiceRea
   const [rate, setRate] = useState(1);
   const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  
+
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const textContentRef = useRef<string>('');
 
@@ -34,12 +34,12 @@ export default function VoiceReader({ content, title, className = '' }: VoiceRea
     // Check if speech synthesis is supported
     if ('speechSynthesis' in window) {
       setIsSupported(true);
-      
+
       // Load voices
       const loadVoices = () => {
         const availableVoices = speechSynthesis.getVoices();
         setVoices(availableVoices);
-        
+
         // Select a good default voice (prefer English voices)
         const englishVoices = availableVoices.filter(v => v.lang.startsWith('en'));
         if (englishVoices.length > 0) {
@@ -136,29 +136,29 @@ export default function VoiceReader({ content, title, className = '' }: VoiceRea
     <div className={`voice-reader bg-white/90 dark:bg-dark-800/90 rounded-xl shadow-lg p-6 ${className}`}>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold flex items-center gap-2">
-          <svg 
-            className="w-5 h-5 text-primary-600" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            className="w-5 h-5 text-primary-600"
+            fill="none"
+            stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M5 7l2-2v14l-2-2V7z" 
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M5 7l2-2v14l-2-2V7z"
             />
           </svg>
           Voice Reader
         </h3>
-        
+
         {/* Rate Control */}
         <div className="flex items-center gap-2">
           <label className="text-sm">Speed:</label>
-          <select 
-            value={rate} 
+          <select
+            value={rate}
             onChange={(e) => setRate(parseFloat(e.target.value))}
-            className="text-sm border rounded px-2 py-1 dark:bg-dark-700 dark:border-dark-600"
+            className="text-sm border rounded px-2 py-1 bg-white dark:bg-dark-700 dark:border-dark-600"
           >
             <option value="0.5">0.5x</option>
             <option value="0.75">0.75x</option>
@@ -173,7 +173,7 @@ export default function VoiceReader({ content, title, className = '' }: VoiceRea
       {/* Progress Bar */}
       <div className="mb-4">
         <div className="w-full bg-gray-200 dark:bg-dark-700 rounded-full h-2">
-          <div 
+          <div
             className="bg-primary-600 h-2 rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
@@ -192,7 +192,7 @@ export default function VoiceReader({ content, title, className = '' }: VoiceRea
             title="Start reading"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z"/>
+              <path d="M8 5v14l11-7z" />
             </svg>
           </button>
         ) : isPlaying ? (
@@ -202,7 +202,7 @@ export default function VoiceReader({ content, title, className = '' }: VoiceRea
             title="Pause reading"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
             </svg>
           </button>
         ) : (
@@ -212,7 +212,7 @@ export default function VoiceReader({ content, title, className = '' }: VoiceRea
             title="Resume reading"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z"/>
+              <path d="M8 5v14l11-7z" />
             </svg>
           </button>
         )}
@@ -224,7 +224,7 @@ export default function VoiceReader({ content, title, className = '' }: VoiceRea
           disabled={!isPlaying && !isPaused}
         >
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M6 6h12v12H6z"/>
+            <path d="M6 6h12v12H6z" />
           </svg>
         </button>
       </div>
@@ -233,13 +233,13 @@ export default function VoiceReader({ content, title, className = '' }: VoiceRea
       {voices.length > 0 && (
         <div className="mt-4">
           <label className="block text-sm font-medium mb-2">Voice:</label>
-          <select 
-            value={voice?.name || ''} 
+          <select
+            value={voice?.name || ''}
             onChange={(e) => {
               const selectedVoice = voices.find(v => v.name === e.target.value);
               setVoice(selectedVoice || null);
             }}
-            className="w-full text-sm border rounded px-3 py-2 dark:bg-dark-700 dark:border-dark-600"
+            className="w-full text-sm border rounded px-3 py-2 bg-white dark:bg-dark-700 dark:border-dark-600"
           >
             {voices.map((v) => (
               <option key={v.name} value={v.name}>
