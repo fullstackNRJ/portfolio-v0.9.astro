@@ -85,6 +85,10 @@ const aiSummary = generateAISummary(
 ---
 
 <Layout title={`${typedPost.data.title} | Neeraj Mukta`}>
+    {/* Open Graph Meta Tags */}
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:image" content={typedPost.data.image} />
+    <meta property="og:logo" content="/public/images/themvpco.jpeg" />
     <main
         class="pt-16 pb-16 min-h-screen"
         role="main"
@@ -601,9 +605,4 @@ const aiSummary = generateAISummary(
             }
         }
     </style>
-
-    {/* Open Graph Meta Tags */}
-    <meta property="og:url" content={currentUrl} />
-    <meta property="og:image" content={typedPost.data.image} />
-    <meta property="og:logo" content="/images/themvpco.jpeg" />
 </Layout>

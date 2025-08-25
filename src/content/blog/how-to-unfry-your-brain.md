@@ -1,7 +1,7 @@
 ---
 title: "How to undo the frying of your brain"
 excerpt: "Taking back control of your brain requires dedication and will power. Being mindful of choices you make throughout the day is the key to taking back your time."
-publishDate: 2025-08-26T00:00:00Z
+publishDate: 2025-08-27T00:00:00Z
 image: "https://images.unsplash.com/photo-1634746027343-985ad425b8b5?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 tags: ["social media", "mental health", "technology", "digital wellbeing", "dopamine detox"]
 author: "Neeraj Mukta"
