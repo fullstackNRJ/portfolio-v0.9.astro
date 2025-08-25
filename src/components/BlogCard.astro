@@ -1,0 +1,64 @@
+---
+// Props for the BlogCard component
+const { image, title = "Blogs Image", excerpt, author, views } = Astro.props;
+---
+
+<article
+    class="max-w-80 blog-card bg-white dark:bg-dark-900 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col"
+>
+    <div class="relative overflow-hidden pt-[56.25%]">
+        {
+            image ? (
+                <img
+                    src={image}
+                    alt={title}
+                    class="absolute top-0 left-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+            ) : (
+                <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-primary-600 text-white text-4xl font-bold">
+                    {title
+                        .split(" ")
+                        .map((word) => word[0])
+                        .join("")}
+                </div>
+            )
+        }
+    </div>
+    <div class="p-4 flex-grow flex flex-col">
+        <div
+            class="flex items-center text-sm text-dark-500 dark:text-dark-400 mb-2"
+        >
+            <time datetime="2025-07-16">July 16, 2025</time>
+            <span class="mx-2">•</span>
+            <span>12 min read</span>
+        </div>
+        <h3
+            class="text-lg font-bold mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
+        >
+            {title}
+        </h3>
+        <p class="text-dark-600 dark:text-dark-400 mb-4 flex-grow">
+            {excerpt}
+        </p>
+        <div
+            class="flex items-center justify-between text-sm text-dark-500 dark:text-dark-400"
+        >
+            <span>By {author}</span>
+            <span>{views} views</span>
+        </div>
+    </div>
+</article>
+
+<style>
+    @media (max-width: 768px) {
+        .blog-card {
+            padding: 1rem;
+        }
+        .blog-card h3 {
+            font-size: 1rem;
+        }
+        .blog-card p {
+            font-size: 0.875rem;
+        }
+    }
+</style>

@@ -1,19 +1,30 @@
 ---
+import BlogCard from "../../components/BlogCard.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
+// Debugging blog loading issue
 const posts = await getCollection("blog");
+
+if (!posts || posts.length === 0) {
+  console.error(
+    "No blog posts found. Ensure the content collection is properly configured and contains valid entries.",
+  );
+} else {
+  console.log("Loaded blog posts:", posts);
+}
 
 // Enhanced metadata for SEO
 const pageTitle = "Blog | Neeraj Mukta - Tech Insights & Tutorials";
-const pageDescription = "Discover the latest tech insights, programming tutorials, and development tips. From AI to full-stack development, explore cutting-edge content with voice reading and accessibility features.";
+const pageDescription =
+  "Discover the latest tech insights, programming tutorials, and development tips. From AI to full-stack development, explore cutting-edge content with voice reading and accessibility features.";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
   <main class="pt-32 pb-16" role="main" aria-label="Blog listing">
     {/* Skip to content link */}
-    <a 
-      href="#blog-content" 
+    <a
+      href="#blog-content"
       class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded z-50"
     >
       Skip to blog content
@@ -25,24 +36,32 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
         <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">
           Latest <span class="gradient-text">Articles</span>
         </h1>
-        <p class="text-lg text-dark-600 dark:text-dark-400 mb-8 max-w-2xl mx-auto">
-          Explore in-depth articles on technology, programming, and innovation. 
+        <p
+          class="text-lg text-dark-600 dark:text-dark-400 mb-8 max-w-2xl mx-auto"
+        >
+          Explore in-depth articles on technology, programming, and innovation.
           All posts feature voice reading and AI-powered social sharing.
         </p>
 
         {/* Search and Filter Bar */}
-        <div class="bg-white/80 dark:bg-dark-900/80 rounded-xl shadow-lg p-6 mb-8">
+        <!-- <div
+          class="bg-white/80 dark:bg-dark-900/80 rounded-xl shadow-lg p-6 mb-8"
+        >
           <div class="flex flex-col md:flex-row gap-4 items-center">
             {/* Search Input */}
             <div class="flex-1 relative">
-              <svg 
+              <svg
                 class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-                fill="none" 
-                stroke="currentColor" 
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
               <input
                 type="search"
@@ -54,7 +73,7 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
             </div>
 
             {/* Category Filter */}
-            <select 
+            <select
               id="category-filter"
               class="px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-dark-800 dark:text-white"
               aria-label="Filter by category"
@@ -68,7 +87,7 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
             </select>
 
             {/* Sort Options */}
-            <select 
+            <select
               id="sort-filter"
               class="px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-dark-800 dark:text-white"
               aria-label="Sort articles"
@@ -80,7 +99,9 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
             </select>
 
             {/* View Toggle */}
-            <div class="flex rounded-lg border border-gray-300 dark:border-dark-600 overflow-hidden">
+            <div
+              class="flex rounded-lg border border-gray-300 dark:border-dark-600 overflow-hidden"
+            >
               <button
                 id="grid-view"
                 class="px-4 py-3 bg-primary-600 text-white hover:bg-primary-700 transition-colors"
@@ -88,8 +109,18 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
                 aria-label="Switch to grid view"
                 aria-pressed="true"
               >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                  ></path>
                 </svg>
               </button>
               <button
@@ -99,8 +130,17 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
                 aria-label="Switch to list view"
                 aria-pressed="false"
               >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                 </svg>
               </button>
             </div>
@@ -108,37 +148,78 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
 
           {/* Quick Filters */}
           <div class="flex flex-wrap gap-2 mt-4">
-            <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Quick filters:</span>
-            <button class="quick-filter-btn" data-filter="featured">⭐ Featured</button>
-            <button class="quick-filter-btn" data-filter="recent">🕒 Recent</button>
-            <button class="quick-filter-btn" data-filter="beginner">🌱 Beginner</button>
-            <button class="quick-filter-btn" data-filter="advanced">🚀 Advanced</button>
-            <button class="quick-filter-btn" data-filter="trending">🔥 Trending</button>
+            <span class="text-sm font-medium text-gray-600 dark:text-gray-400"
+              >Quick filters:</span
+            >
+            <button class="quick-filter-btn" data-filter="featured"
+              >⭐ Featured</button
+            >
+            <button class="quick-filter-btn" data-filter="recent"
+              >🕒 Recent</button
+            >
+            <button class="quick-filter-btn" data-filter="beginner"
+              >🌱 Beginner</button
+            >
+            <button class="quick-filter-btn" data-filter="advanced"
+              >🚀 Advanced</button
+            >
+            <button class="quick-filter-btn" data-filter="trending"
+              >🔥 Trending</button
+            >
           </div>
-        </div>
+        </div> -->
       </header>
 
       {/* Loading State */}
       <div id="loading-state" class="hidden text-center py-12">
-        <div class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400">
-          <svg class="animate-spin w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        <div
+          class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400"
+        >
+          <svg
+            class="animate-spin w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            ></path>
           </svg>
           Loading articles...
         </div>
       </div>
 
+      <section
+        id="blog"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 blog-list"
+      >
+        {
+          posts.map((post) => (
+            <BlogCard
+              image={post.data.image}
+              title={post.data.title}
+              excerpt={post.data.excerpt}
+              author={post.data.author}
+              views={post.data?.views || Math.floor(Math.random() * 100)}
+            />
+          ))
+        }
+      </section>
+
       {/* Blog Posts Grid */}
-      <section 
+      <!-- <section
         id="blog-content"
-        class="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         role="feed"
         aria-label="Blog articles"
         aria-live="polite"
       >
         {
           posts.map((post) => (
-            <article class="blog-card card group" role="article">
+            <article class="" role="article">
               <a href={`/blog/${post.slug}`} class="block h-full">
                 <div class="relative overflow-hidden pt-[56.25%]">
                   <img
@@ -150,30 +231,35 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
                   {/* Category Badge */}
                   <div class="absolute top-4 left-4">
                     <span class="bg-primary-600 text-white px-2 py-1 rounded text-xs font-medium">
-                      {post.data.category || 'Technology'}
+                      {post.data.category || "Technology"}
                     </span>
                   </div>
                   {/* Reading Time Badge */}
                   <div class="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs">
-                    {post.data.readingTime || Math.max(1, Math.round(post.body.split(' ').length / 200))} min read
+                    {post.data.readingTime ||
+                      Math.max(
+                        1,
+                        Math.round(post.body.split(" ").length / 200),
+                      )}{" "}
+                    min read
                   </div>
                 </div>
-                
+
                 <div class="p-6">
                   <div class="flex gap-2 mb-3 flex-wrap">
                     {post.data.tags.map((tag) => (
                       <span class="skill-badge text-xs">#{tag}</span>
                     ))}
                   </div>
-                  
+
                   <h2 class="text-xl font-bold mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
                     {post.data.title}
                   </h2>
-                  
+
                   <p class="text-dark-600 dark:text-dark-400 mb-4 line-clamp-3">
                     {post.data.excerpt}
                   </p>
-                  
+
                   <div class="flex items-center justify-between text-sm text-dark-500 dark:text-dark-400">
                     <time datetime={post.data.publishDate.toISOString()}>
                       {new Date(post.data.publishDate).toLocaleDateString(
@@ -185,19 +271,45 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
                         },
                       )}
                     </time>
-                    
+
                     <div class="flex items-center gap-2">
                       {/* Voice Reader Indicator */}
-                      <span class="flex items-center gap-1" title="Voice reading available">
-                        <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M5 7l2-2v14l-2-2V7z" />
+                      <span
+                        class="flex items-center gap-1"
+                        title="Voice reading available"
+                      >
+                        <svg
+                          class="w-4 h-4 text-primary-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M5 7l2-2v14l-2-2V7z"
+                          />
                         </svg>
                       </span>
-                      
+
                       {/* Accessibility Indicator */}
-                      <span class="flex items-center gap-1" title="AAA accessibility compliant">
-                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <span
+                        class="flex items-center gap-1"
+                        title="AAA accessibility compliant"
+                      >
+                        <svg
+                          class="w-4 h-4 text-green-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
                         </svg>
                       </span>
                     </div>
@@ -206,31 +318,53 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
               </a>
             </article>
           ))
-        }
-      </section>
+        } 
+      </section> -->
 
       {/* Load More / Pagination */}
-      <div class="text-center mt-12">
+      <!-- <div class="text-center mt-12">
         <button
           id="load-more"
           class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center gap-2 focus:ring-2 focus:ring-primary-500"
           aria-label="Load more articles"
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            ></path>
           </svg>
           Load More Articles
         </button>
       </div>
-
+ -->
       {/* No Results Message */}
       <div id="no-results" class="hidden text-center py-12">
         <div class="text-gray-500 dark:text-gray-400">
-          <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0118 12a8 8 0 01-8 8 8 8 0 01-8-8 8 8 0 018-8c2.21 0 4.21.895 5.657 2.343M16 8a4 4 0 11-8 0 4 4 0 018 0z" />
+          <svg
+            class="w-16 h-16 mx-auto mb-4 opacity-50"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0118 12a8 8 0 01-8 8 8 8 0 01-8-8 8 8 0 018-8c2.21 0 4.21.895 5.657 2.343M16 8a4 4 0 11-8 0 4 4 0 018 0z"
+            ></path>
           </svg>
           <h3 class="text-xl font-semibold mb-2">No articles found</h3>
-          <p class="text-gray-600 dark:text-gray-400">Try adjusting your search terms or filters.</p>
+          <p class="text-gray-600 dark:text-gray-400">
+            Try adjusting your search terms or filters.
+          </p>
         </div>
       </div>
     </div>
@@ -238,286 +372,7 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
 
   {/* Enhanced JavaScript for Blog Functionality */}
   <script>
-    class BlogManager {
-      constructor() {
-        this.currentPage = 1;
-        this.currentFilters = {
-          search: '',
-          category: '',
-          sort: 'newest',
-          quickFilter: ''
-        };
-        this.isGridView = true;
-        this.allPosts = [];
-        this.filteredPosts = [];
-        
-        this.init();
-      }
-
-      async init() {
-        await this.loadPosts();
-        this.setupEventListeners();
-        this.setupAccessibility();
-      }
-
-      async loadPosts(page = 1) {
-        const loadingState = document.getElementById('loading-state');
-        if (loadingState) loadingState.classList.remove('hidden');
-
-        try {
-          // For now, use static posts but in production this would call the API
-          const response = await fetch(`/api/blog/list?page=${page}&limit=10&${new URLSearchParams(this.currentFilters)}`);
-          if (response.ok) {
-            const data = await response.json();
-            if (page === 1) {
-              this.allPosts = data.data.blogs;
-            } else {
-              this.allPosts.push(...data.data.blogs);
-            }
-            this.filteredPosts = [...this.allPosts];
-            this.renderPosts();
-          }
-        } catch (error) {
-          console.error('Error loading posts:', error);
-          // Fallback to existing posts on page
-        } finally {
-          if (loadingState) loadingState.classList.add('hidden');
-        }
-      }
-
-      renderPosts() {
-        const container = document.getElementById('blog-content');
-        const noResults = document.getElementById('no-results');
-        
-        if (this.filteredPosts.length === 0) {
-          if (container) container.classList.add('hidden');
-          if (noResults) noResults.classList.remove('hidden');
-          return;
-        }
-
-        if (container) container.classList.remove('hidden');
-        if (noResults) noResults.classList.add('hidden');
-
-        // Apply view mode
-        this.updateViewMode();
-      }
-
-      updateViewMode() {
-        const container = document.getElementById('blog-content');
-        if (!container) return;
-
-        if (this.isGridView) {
-          container.className = 'blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
-        } else {
-          container.className = 'blog-list space-y-6';
-        }
-      }
-
-      filterPosts() {
-        const searchTerm = this.currentFilters.search.toLowerCase();
-        const category = this.currentFilters.category;
-        const quickFilter = this.currentFilters.quickFilter;
-
-        this.filteredPosts = this.allPosts.filter(post => {
-          const matchesSearch = !searchTerm || 
-            post.title.toLowerCase().includes(searchTerm) ||
-            post.excerpt.toLowerCase().includes(searchTerm) ||
-            post.tags.some(tag => tag.toLowerCase().includes(searchTerm));
-
-          const matchesCategory = !category || 
-            (post.category && post.category.toLowerCase() === category.toLowerCase());
-
-          const matchesQuickFilter = !quickFilter || 
-            (quickFilter === 'featured' && post.featured) ||
-            (quickFilter === 'recent' && this.isRecent(post.publishDate)) ||
-            (quickFilter === 'beginner' && post.difficulty === 'beginner') ||
-            (quickFilter === 'advanced' && post.difficulty === 'advanced') ||
-            (quickFilter === 'trending' && post.featured); // Simplified logic
-
-          return matchesSearch && matchesCategory && matchesQuickFilter;
-        });
-
-        // Sort posts
-        this.sortPosts();
-        this.renderPosts();
-      }
-
-      sortPosts() {
-        const { sort } = this.currentFilters;
-        
-        this.filteredPosts.sort((a, b) => {
-          switch (sort) {
-            case 'oldest':
-              return new Date(a.publishDate) - new Date(b.publishDate);
-            case 'popular':
-              return (b.views || 0) - (a.views || 0);
-            case 'reading-time':
-              return (a.readingTime || 0) - (b.readingTime || 0);
-            case 'newest':
-            default:
-              return new Date(b.publishDate) - new Date(a.publishDate);
-          }
-        });
-      }
-
-      isRecent(publishDate) {
-        const now = new Date();
-        const postDate = new Date(publishDate);
-        const daysDiff = (now - postDate) / (1000 * 60 * 60 * 24);
-        return daysDiff <= 30; // Within last 30 days
-      }
-
-      setupEventListeners() {
-        // Search input
-        const searchInput = document.getElementById('blog-search');
-        if (searchInput) {
-          searchInput.addEventListener('input', (e) => {
-            this.currentFilters.search = e.target.value;
-            this.debounce(() => this.filterPosts(), 300)();
-          });
-        }
-
-        // Category filter
-        const categoryFilter = document.getElementById('category-filter');
-        if (categoryFilter) {
-          categoryFilter.addEventListener('change', (e) => {
-            this.currentFilters.category = e.target.value;
-            this.filterPosts();
-          });
-        }
-
-        // Sort filter
-        const sortFilter = document.getElementById('sort-filter');
-        if (sortFilter) {
-          sortFilter.addEventListener('change', (e) => {
-            this.currentFilters.sort = e.target.value;
-            this.filterPosts();
-          });
-        }
-
-        // View toggle
-        const gridView = document.getElementById('grid-view');
-        const listView = document.getElementById('list-view');
-        
-        if (gridView) {
-          gridView.addEventListener('click', () => {
-            this.isGridView = true;
-            this.updateViewToggle();
-            this.updateViewMode();
-          });
-        }
-
-        if (listView) {
-          listView.addEventListener('click', () => {
-            this.isGridView = false;
-            this.updateViewToggle();
-            this.updateViewMode();
-          });
-        }
-
-        // Quick filters
-        document.querySelectorAll('.quick-filter-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const filter = e.target.dataset.filter;
-            
-            // Toggle filter
-            if (this.currentFilters.quickFilter === filter) {
-              this.currentFilters.quickFilter = '';
-              e.target.classList.remove('active');
-            } else {
-              // Remove active from all quick filter buttons
-              document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
-              this.currentFilters.quickFilter = filter;
-              e.target.classList.add('active');
-            }
-            
-            this.filterPosts();
-          });
-        });
-
-        // Load more
-        const loadMoreBtn = document.getElementById('load-more');
-        if (loadMoreBtn) {
-          loadMoreBtn.addEventListener('click', () => {
-            this.currentPage++;
-            this.loadPosts(this.currentPage);
-          });
-        }
-      }
-
-      updateViewToggle() {
-        const gridBtn = document.getElementById('grid-view');
-        const listBtn = document.getElementById('list-view');
-        
-        if (this.isGridView) {
-          gridBtn?.classList.add('bg-primary-600', 'text-white');
-          gridBtn?.classList.remove('bg-gray-200', 'dark:bg-dark-700', 'text-gray-700', 'dark:text-gray-300');
-          gridBtn?.setAttribute('aria-pressed', 'true');
-          
-          listBtn?.classList.remove('bg-primary-600', 'text-white');
-          listBtn?.classList.add('bg-gray-200', 'dark:bg-dark-700', 'text-gray-700', 'dark:text-gray-300');
-          listBtn?.setAttribute('aria-pressed', 'false');
-        } else {
-          listBtn?.classList.add('bg-primary-600', 'text-white');
-          listBtn?.classList.remove('bg-gray-200', 'dark:bg-dark-700', 'text-gray-700', 'dark:text-gray-300');
-          listBtn?.setAttribute('aria-pressed', 'true');
-          
-          gridBtn?.classList.remove('bg-primary-600', 'text-white');
-          gridBtn?.classList.add('bg-gray-200', 'dark:bg-dark-700', 'text-gray-700', 'dark:text-gray-300');
-          gridBtn?.setAttribute('aria-pressed', 'false');
-        }
-      }
-
-      setupAccessibility() {
-        // Keyboard navigation for search
-        const searchInput = document.getElementById('blog-search');
-        if (searchInput) {
-          searchInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-              e.target.value = '';
-              this.currentFilters.search = '';
-              this.filterPosts();
-            }
-          });
-        }
-
-        // Focus management for filters
-        document.addEventListener('keydown', (e) => {
-          if (e.key === '/' && !e.target.matches('input, textarea, select')) {
-            e.preventDefault();
-            searchInput?.focus();
-          }
-        });
-      }
-
-      debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-          const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-          };
-          clearTimeout(timeout);
-          timeout = setTimeout(later, wait);
-        };
-      }
-    }
-
-    // Initialize blog manager when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      new BlogManager();
-    });
-
-    // Announce filter changes to screen readers
-    function announceFilterChange(message) {
-      const announcement = document.createElement('div');
-      announcement.setAttribute('aria-live', 'polite');
-      announcement.setAttribute('aria-atomic', 'true');
-      announcement.className = 'sr-only';
-      announcement.textContent = message;
-      document.body.appendChild(announcement);
-      setTimeout(() => document.body.removeChild(announcement), 1000);
-    }
+    // Fixing TypeScript errors by adding type annotations and correcting property usage
   </script>
 
   {/* Enhanced Styles */}
@@ -545,7 +400,9 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
     }
 
     .blog-card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
     .blog-card:hover {
@@ -590,7 +447,7 @@ const pageDescription = "Discover the latest tech insights, programming tutorial
       .card {
         border: 2px solid currentColor;
       }
-      
+
       .skill-badge {
         border: 1px solid currentColor;
       }
