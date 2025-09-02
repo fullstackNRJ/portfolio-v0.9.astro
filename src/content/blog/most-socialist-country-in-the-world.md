@@ -1,7 +1,7 @@
 ---
 title: "America’s Hidden Welfare State: Why the U.S. Looks More ‘Socialist’ Than You Think"
 excerpt: "Hot take: by outcomes, not ideology, the United States runs one of the largest social protection systems on earth—much of it hidden in the tax code and private mandates."
-publishDate: 2025-09-01T00:00:00Z
+publishDate: 2025-09-03T00:00:00Z
 image: "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&auto=format&fit=crop&w=1600&h=900"
 tags: ["economics", "policy", "socialism", "welfare state", "USA"]
 readingTime: 9
