@@ -7,7 +7,7 @@ image: "https://avatars.githubusercontent.com/u/17597033?v=4"
 tags: ["me", "intro"]
 ---
 
-# Hello, I'm [Your Name] 👋
+# Hello, I'm Niraj 👋
 
 Welcome to my blog! I'm a passionate developer and lifelong learner, always eager to explore new technologies and creative solutions. Let me tell you a bit about myself.
 
