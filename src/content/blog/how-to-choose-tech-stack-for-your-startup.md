@@ -1,3 +1,22 @@
+---
+title: "How to choose tech stack for your next app."
+excerpt: "Explore how AI is reshaping the decision between no-code and full-code development for MVPs in 2025. Learn the pros, cons, and best practices for leveraging AI tools like GitHub Copilot and Claude."
+publishDate: 2025-09-12T00:00:00Z
+image: "https://assets.themvpco.one/api/assets/techstack-1.png"
+tags: ["AI", "no-code", "full-code", "MVP development", "technology"]
+author: "Neeraj Mukta"
+readingTime: 10
+difficulty: "advanced"
+category: "Technology"
+featured: true
+enableVoiceReader: true
+enableComments: true
+seoKeywords: ["AI development", "no-code vs full-code", "MVP development", "GitHub Copilot", "Claude AI"]
+socialImage: "https://assets.themvpco.one/api/assets/techstack-1.png"
+aiSummary: "Discover how AI tools like GitHub Copilot and Claude are transforming MVP development in 2025. Learn when to choose no-code, full-code, or a hybrid approach."
+aiHashtags: ["#AI", "#NoCode", "#FullCode", "#MVPDevelopment"]
+---
+
 # A Startup's Guide to Technology Stack Decisions: Framework Over Fashion
 
 ## Introduction
