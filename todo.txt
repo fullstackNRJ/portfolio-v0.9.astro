@@ -1,4 +1,5 @@
 [todo]
+- Solutions section : Webflow solutions, GSAP Solutions, React + NextJS solutions, Custom Web app, Mobile, Desktop solutions 
 - hook up agent to publish mdx files with just an api or git push
 Get this new sections hoooked up
  - Technical portfolio current one
