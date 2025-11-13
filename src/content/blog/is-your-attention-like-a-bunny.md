@@ -1,7 +1,7 @@
 ---
 title: "Is Your Attention Like a Bunny? Hopping from One Thing to the Next"
 excerpt: "Discover why your attention span is shrinking, understand the dopamine loop, and learn practical strategies to reclaim your focus in our distraction-filled digital world."
-publishDate: 30-10-2025
+publishDate: 2025-10-30
 image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&q=80"
 author: "Neeraj Mukta"
 tags: ["attention-span", "focus", "productivity", "digital-wellness", "mindfulness"]
