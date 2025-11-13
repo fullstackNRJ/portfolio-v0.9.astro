@@ -1,0 +1,65 @@
+---
+import WeddingLayout from "../../layouts/WeddingLayout.astro";
+import WeddingHome from "../../components/wedding/WeddingHome";
+import WeddingVendors from "../../components/wedding/WeddingVendors";
+import WeddingTimeline from "../../components/wedding/WeddingTimeline";
+---
+
+<WeddingLayout title="Neeraj Mukta - Wedding">
+  <div id="wedding-content">
+    <!-- Render client components. Each component is responsible for reacting to tab-change events. -->
+    <div data-tab-content="home">
+      <WeddingHome client:load />
+    </div>
+
+    <div data-tab-content="vendors">
+      <WeddingVendors client:load />
+    </div>
+
+    <div data-tab-content="timeline">
+      <WeddingTimeline client:load />
+    </div>
+
+    <!-- budget, guests, tasks tabs can be added later as client components -->
+  </div>
+
+  <script is:inline>
+    (function () {
+      const content = document.getElementById("wedding-content");
+      if (!content) return;
+      function setActive(tab) {
+        const nodes = content.querySelectorAll("[data-tab-content]");
+        nodes.forEach((n) => {
+          const t = n.getAttribute("data-tab-content");
+          if (t === tab) {
+            n.style.display = "";
+            n.classList.remove("fade-out");
+            n.classList.add("fade-in");
+          } else {
+            n.classList.remove("fade-in");
+            n.classList.add("fade-out");
+            // hide after animation to keep layout small
+            setTimeout(() => {
+              if (n.getAttribute("data-tab-content") !== tab)
+                n.style.display = "none";
+            }, 320);
+          }
+        });
+      }
+
+      // initial
+      setActive("home");
+
+      window.addEventListener("wedding-tab-change", (e) => {
+        const tab = e.detail?.tab || "home";
+        setActive(tab);
+      });
+
+      // forward play sound requests from layout to store bridge
+      window.addEventListener("wedding-play-sound", (e) => {
+        // If a global handler exists (in components) it will call playSound; otherwise no-op
+        // This event is just a simple bridge so components can handle audio centrally via the store.
+      });
+    })();
+  </script>
+</WeddingLayout>

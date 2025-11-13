@@ -6,7 +6,7 @@ image: "https://assets.themvpco.one/api/assets/read-docs.png"
 tags: ["AI", "documentation", "reading", "MVP development", "technology", "docs", "learning"]
 author: "Neeraj Mukta"
 readingTime: 5
-difficulty: "easy"
+difficulty: "beginner"
 category: "Technology"
 featured: true
 enableVoiceReader: true

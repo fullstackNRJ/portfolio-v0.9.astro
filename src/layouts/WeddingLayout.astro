@@ -1,0 +1,198 @@
+---
+// WeddingLayout.astro
+import "../styles/wedding.css";
+const { title = "Wedding" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="wedding-root romantic">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#ec4899" />
+    <title>{title}</title>
+  </head>
+  <body class="wedding-body">
+    <main class="wedding-container">
+      <slot />
+    </main>
+
+    <nav
+      class="wedding-navbar"
+      role="navigation"
+      aria-label="Wedding navigation"
+    >
+      <div class="navbar-content">
+        <button class="nav-item" data-tab="home" aria-label="Home">
+          <span class="nav-icon">🏠</span>
+          <span class="label">Home</span>
+        </button>
+
+        <button class="nav-item" data-tab="vendors" aria-label="Vendors">
+          <span class="nav-icon">🧾</span>
+          <span class="label">Vendors</span>
+        </button>
+
+        <button class="nav-item" data-tab="timeline" aria-label="Timeline">
+          <span class="nav-icon">🗓️</span>
+          <span class="label">Timeline</span>
+        </button>
+
+        <button class="nav-item" data-tab="budget" aria-label="Budget">
+          <span class="nav-icon">💰</span>
+          <span class="label">Budget</span>
+        </button>
+
+        <button class="nav-item" data-tab="guests" aria-label="Guests">
+          <span class="nav-icon">👥</span>
+          <span class="label">Guests</span>
+        </button>
+
+        <button class="nav-item" data-tab="tasks" aria-label="Tasks">
+          <span class="nav-icon">✅</span>
+          <span class="label">Tasks</span>
+        </button>
+
+        <button
+          id="theme-toggle"
+          class="nav-item theme-toggle"
+          aria-label="Toggle theme"
+          title="Light / Dark / Romantic"
+        >
+          <span class="nav-icon" id="theme-icon">🌙</span>
+          <span class="label">Theme</span>
+        </button>
+      </div>
+    </nav>
+
+    <script is:inline>
+      // Theme initialization and management
+      (function () {
+        const themeToggle = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+        const root = document.documentElement;
+
+        // Get stored theme or system preference
+        const getInitialTheme = () => {
+          const stored = localStorage.getItem("wedding-theme");
+          if (stored === "light" || stored === "dark" || stored === "romantic")
+            return stored;
+          if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+          ) {
+            return "dark";
+          }
+          return "romantic";
+        };
+
+        let currentTheme = getInitialTheme();
+
+        const applyTheme = (theme) => {
+          root.classList.remove("light", "dark", "romantic");
+          root.classList.add(theme);
+          root.setAttribute("data-theme", theme);
+          localStorage.setItem("wedding-theme", theme);
+
+          // Update icon
+          if (themeIcon) {
+            if (theme === "light") themeIcon.textContent = "☀️";
+            else if (theme === "dark") themeIcon.textContent = "🌙";
+            else themeIcon.textContent = "💗";
+          }
+
+          // Update meta theme-color
+          const metaThemeColor = document.querySelector(
+            'meta[name="theme-color"]',
+          );
+          if (metaThemeColor) {
+            if (theme === "dark")
+              metaThemeColor.setAttribute("content", "#1f2937");
+            else if (theme === "romantic")
+              metaThemeColor.setAttribute("content", "#ec4899");
+            else metaThemeColor.setAttribute("content", "#ffffff");
+          }
+
+          currentTheme = theme;
+          window.dispatchEvent(
+            new CustomEvent("wedding-theme-change", { detail: { theme } }),
+          );
+        };
+
+        // Apply initial theme
+        applyTheme(currentTheme);
+
+        // Theme toggle handler
+        if (themeToggle) {
+          themeToggle.addEventListener("click", (e) => {
+            e.preventDefault();
+            const next =
+              currentTheme === "light"
+                ? "dark"
+                : currentTheme === "dark"
+                  ? "romantic"
+                  : "light";
+            applyTheme(next);
+            window.dispatchEvent(
+              new CustomEvent("wedding-play-sound", {
+                detail: { type: "tap" },
+              }),
+            );
+          });
+        }
+
+        // Listen for external theme changes
+        window.addEventListener("wedding-set-theme", (e) => {
+          const theme = e.detail?.theme;
+          if (
+            theme &&
+            (theme === "light" || theme === "dark" || theme === "romantic")
+          ) {
+            applyTheme(theme);
+          }
+        });
+      })();
+
+      // Tab navigation
+      (function () {
+        const nav = document.querySelector(".wedding-navbar");
+        if (!nav) return;
+        const items = nav.querySelectorAll(".nav-item:not(.theme-toggle)");
+        function setActive(tab) {
+          items.forEach((i) =>
+            i.classList.toggle("active", i.getAttribute("data-tab") === tab),
+          );
+        }
+
+        // initial
+        setActive("home");
+
+        items.forEach((item) => {
+          item.addEventListener("click", (e) => {
+            const tab = item.getAttribute("data-tab");
+            setActive(tab);
+            // global event for page scripts/components
+            window.dispatchEvent(
+              new CustomEvent("wedding-tab-change", { detail: { tab } }),
+            );
+            // small tap sound via page script if present
+            window.dispatchEvent(
+              new CustomEvent("wedding-play-sound", {
+                detail: { type: "tap" },
+              }),
+            );
+          });
+        });
+
+        // allow external scripts to set active tab
+        window.addEventListener("wedding-set-tab", (e) => {
+          const tab = e.detail?.tab;
+          if (tab) setActive(tab);
+        });
+      })();
+    </script>
+  </body>
+</html>
