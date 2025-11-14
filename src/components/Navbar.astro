@@ -15,7 +15,9 @@ const navItems = [
   class="fixed w-full top-0 left-0 right-0 z-40 transition-all duration-300 md:backdrop-blur-md"
 >
   {/* Wedding Announcement Banner */}
-  <div class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-3 text-center">
+  <div
+    class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-3 text-center"
+  >
     <a
       href="https://neerajmukta-tv.astro.vercel.app/"
       target="_blank"
@@ -239,12 +241,14 @@ const navItems = [
     });
 
     // Check if user is authenticated and show My Docs link
-    const authCookie = document.cookie.split(';').find(row => row.trim().startsWith('authenticated='));
+    const authCookie = document.cookie
+      .split(";")
+      .find((row) => row.trim().startsWith("authenticated="));
     if (authCookie) {
       // User has authentication marker, show My Docs link
-      const myDocsLink = document.getElementById('my-docs-link');
+      const myDocsLink = document.getElementById("my-docs-link");
       if (myDocsLink) {
-        myDocsLink.classList.remove('hidden');
+        myDocsLink.classList.remove("hidden");
       }
     }
   });
