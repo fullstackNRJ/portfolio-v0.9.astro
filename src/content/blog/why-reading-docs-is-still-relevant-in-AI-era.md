@@ -2,7 +2,7 @@
 title: "Why reading docs is important in an All AI era."
 excerpt: "AI can extract and use the only required info from the docs but it can't help you learn the docs or understand the notion behind the docs. Unless, you read it yourself, process it and create your own opinion you have learnt nothing."
 publishDate: 2025-09-10T00:00:00Z
-image: "https://assets.themvpco.one/api/assets/read-docs.png"
+image: "https://assets.neerajmukta.com/api/assets/read-docs.png"
 tags: ["AI", "documentation", "reading", "MVP development", "technology", "docs", "learning"]
 author: "Neeraj Mukta"
 readingTime: 5
@@ -12,7 +12,7 @@ featured: true
 enableVoiceReader: true
 enableComments: true
 seoKeywords: ["AI development", "no-code vs full-code", "MVP development", "GitHub Copilot", "Claude AI"]
-socialImage: "https://assets.themvpco.one/api/assets/read-docs.png"
+socialImage: "https://assets.neerajmukta.com/api/assets/read-docs.png"
 aiSummary: "Discover how AI tools like GitHub Copilot and Claude are transforming MVP development in 2025. Learn when to choose no-code, full-code, or a hybrid approach."
 aiHashtags: ["#AI", "#NoCode", "#FullCode", "#MVPDevelopment"]
 ---
