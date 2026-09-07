@@ -18,7 +18,7 @@ export const GET: APIRoute = async ({ request }) => {
     }
 
     // Fetch files from the API
-    const response = await fetch('https://assets.themvpco.one/api/blogs?page=1&limit=10', {
+    const response = await fetch('https://assets.neerajmukta.com/api/blogs?page=1&limit=10', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

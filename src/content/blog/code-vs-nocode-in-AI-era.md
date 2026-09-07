@@ -2,7 +2,7 @@
 title: "No-Code vs Full-Code for MVPs in 2025: AI Changes Everything"
 excerpt: "Explore how AI is reshaping the decision between no-code and full-code development for MVPs in 2025. Learn the pros, cons, and best practices for leveraging AI tools like GitHub Copilot and Claude."
 publishDate: 2025-08-30T00:00:00Z
-image: "https://assets.themvpco.one/api/assets/code-vs-nocode.png"
+image: "https://assets.neerajmukta.com/api/assets/code-vs-nocode.png"
 tags: ["AI", "no-code", "full-code", "MVP development", "technology"]
 author: "Neeraj Mukta"
 readingTime: 10
@@ -12,7 +12,7 @@ featured: true
 enableVoiceReader: true
 enableComments: true
 seoKeywords: ["AI development", "no-code vs full-code", "MVP development", "GitHub Copilot", "Claude AI"]
-socialImage: "https://assets.themvpco.one/api/assets/code-vs-nocode.png"
+socialImage: "https://assets.neerajmukta.com/api/assets/code-vs-nocode.png"
 aiSummary: "Discover how AI tools like GitHub Copilot and Claude are transforming MVP development in 2025. Learn when to choose no-code, full-code, or a hybrid approach."
 aiHashtags: ["#AI", "#NoCode", "#FullCode", "#MVPDevelopment"]
 ---

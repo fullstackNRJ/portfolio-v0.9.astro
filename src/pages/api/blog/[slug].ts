@@ -214,7 +214,7 @@ export const GET: APIRoute = async ({ params, request }) => {
         }
 
         // Fetch individual blog content from external API
-        const contentResponse = await fetch(`https://assets.themvpco.one/api/blogs/${slug}`, {
+        const contentResponse = await fetch(`https://assets.neerajmukta.com/api/blogs/${slug}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

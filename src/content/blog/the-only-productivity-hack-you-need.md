@@ -2,7 +2,7 @@
 title: "How Timeboxing Can Transform Your Productivity (Without Making You Feel Like a Robot)"
 excerpt: "Discover how timeboxing can help you reclaim your time and sanity by working smarter, not harder. Learn practical tips and tools to make it work for you."
 publishDate: 2025-09-5T00:00:00Z
-image: "https://assets.themvpco.one/api/assets/time-productivity.png"
+image: "https://assets.neerajmukta.com/api/assets/time-productivity.png"
 tags: ["productivity", "time management", "timeboxing", "work smarter"]
 author: "Neeraj Mukta"
 readingTime: 7
@@ -12,7 +12,7 @@ featured: true
 enableVoiceReader: true
 enableComments: true
 seoKeywords: ["timeboxing", "productivity hacks", "time management tips", "work smarter"]
-socialImage: "https://assets.themvpco.one/api/assets/time-productivity.png"
+socialImage: "https://assets.neerajmukta.com/api/assets/time-productivity.png"
 aiSummary: "Learn how timeboxing can transform your productivity by setting time limits for tasks. Discover practical strategies, tools, and tips to make the most of your time."
 aiHashtags: ["#Productivity", "#TimeManagement", "#Timeboxing", "#WorkSmarter"]
 ---

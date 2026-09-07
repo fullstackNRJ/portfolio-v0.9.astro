@@ -2,7 +2,7 @@
 title: "Webflow Review 2025: Complete Guide to Visual Website Development (Pros, Cons & Pricing)"
 excerpt: "Explore the power of Webflow, a visual web development platform that bridges the gap between design and development. Learn its features, limitations, and when to choose it for your projects."
 publishDate: 2025-09-1T00:00:00Z
-image: "https://assets.themvpco.one/api/assets/webflow.svg"
+image: "https://assets.neerajmukta.com/api/assets/webflow.svg"
 tags: ["Webflow", "web development", "visual design", "no-code", "technology"]
 author: "Neeraj Mukta"
 readingTime: 15
@@ -12,7 +12,7 @@ featured: true
 enableVoiceReader: true
 enableComments: true
 seoKeywords: ["Webflow review", "visual web development", "no-code platforms", "web design tools", "responsive websites"]
-socialImage: "https://assets.themvpco.one/api/assets/webflow.svg"
+socialImage: "https://assets.neerajmukta.com/api/assets/webflow.svg"
 aiSummary: "Discover why Webflow is a game-changer in web development. Learn its features, pricing, and when to choose it for your next project."
 aiHashtags: ["#Webflow", "#NoCode", "#WebDevelopment", "#VisualDesign"]
 ---

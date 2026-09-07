@@ -216,7 +216,7 @@ export const GET: APIRoute = async ({ url }) => {
     const includeContent = searchParams.get('includeContent') === 'true';
 
     // Build API URL with parameters for blog list
-    const apiUrl = new URL('https://assets.themvpco.one/api/blogs');
+    const apiUrl = new URL('https://assets.neerajmukta.com/api/blogs');
     apiUrl.searchParams.set('page', page.toString());
     apiUrl.searchParams.set('limit', limit.toString());
     if (category) apiUrl.searchParams.set('category', category);
@@ -248,7 +248,7 @@ export const GET: APIRoute = async ({ url }) => {
         // Fetch full content for each blog post (for detailed listings)
         const blogContentPromises = blogList.map(async (blogItem): Promise<BlogPost | null> => {
           try {
-            const contentResponse = await fetch(`https://assets.themvpco.one/api/blogs/${blogItem.slug}`, {
+            const contentResponse = await fetch(`https://assets.neerajmukta.com/api/blogs/${blogItem.slug}`, {
               method: 'GET',
               headers: {
                 'Accept': 'application/json',

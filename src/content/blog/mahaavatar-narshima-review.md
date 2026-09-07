@@ -2,7 +2,7 @@
 title: "Mahavatar Narshima moview review and relevancy"
 excerpt: "How does an animated movie based on hindu mythology broke all the records of bollywood."
 publishDate: 2025-09-14T00:00:00Z
-image: "https://assets.themvpco.one/api/assets/narshima-avatar.png"
+image: "https://assets.neerajmukta.com/api/assets/narshima-avatar.png"
 tags: ["Movie", "faith", "hindu", "Hinduism", "Good vs Evil"]
 author: "Neeraj Mukta"
 readingTime: 10
@@ -12,7 +12,7 @@ featured: true
 enableVoiceReader: true
 enableComments: true
 seoKeywords: ["Movie", "faith", "hindu", "Hinduism", "Good vs Evil"]
-socialImage: "https://assets.themvpco.one/api/assets/narshima-avatar.png"
+socialImage: "https://assets.neerajmukta.com/api/assets/narshima-avatar.png"
 aiSummary: "How does an animated movie based on hindu mythology broke all the records of bollywood."
 aiHashtags: ["#movie", "#narshimaavatar", "#recordbreak", "#Mahavatar"]
 ---

@@ -42,7 +42,7 @@ export const POST: APIRoute = async ({ request }) => {
     uploadFormData.append('file', file);
 
     // Upload to the external API
-    const uploadResponse = await fetch('https://assets.themvpco.one/api/upload/markdown', {
+    const uploadResponse = await fetch('https://assets.neerajmukta.com/api/upload/markdown', {
       method: 'POST',
       body: uploadFormData,
       headers: {

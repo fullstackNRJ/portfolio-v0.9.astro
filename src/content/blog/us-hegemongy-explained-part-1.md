@@ -2,7 +2,7 @@
 title: "The Dollar Racket: How the World Traded Reality for Paper"
 publishDate: 2025-09-02
 excerpt: "Don't ask economists; they're part of the scam. The global order is a confidence game built on the U.S. dollar. Here's how the racket works and why it's about to implode."
-image: "https://assets.themvpco.one/api/assets/us-hegemony.png"
+image: "https://assets.neerajmukta.com/api/assets/us-hegemony.png"
 tags: ["geopolitics", "finance", "society", "dollar", "risk"]
 ---
 
