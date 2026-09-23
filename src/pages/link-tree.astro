@@ -14,7 +14,7 @@ interface LinkItem {
   title: string;
   subtitle: string;
   url: string;
-  category: "resume" | "projects" | "websites" | "portfolios" | "connect";
+  category: "resume" | "certifications" | "projects" | "websites" | "portfolios" | "connect";
   iconName: string;
   badge?: string;
   badgeColor?: string;
@@ -38,6 +38,20 @@ const linkItems: LinkItem[] = [
     highlight: true,
     external: true,
     tags: ["resume", "cv", "experience", "skills", "pdf"],
+  },
+  // Certifications & Credentials
+  {
+    id: "cert-claude-architect",
+    title: "Claude Certified Architect - Foundations",
+    subtitle: "Issued by Anthropic • Production AI Apps, MCP & Claude Code",
+    url: "https://www.credly.com/badges/45ee86f7-e79b-4fae-a7c4-0f0dd71f70fb",
+    category: "certifications",
+    iconName: "certificate",
+    badge: "Anthropic Certified",
+    badgeColor: "bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/30",
+    highlight: true,
+    external: true,
+    tags: ["claude", "anthropic", "architect", "certification", "credential", "credly", "ai", "mcp"],
   },{
     id: "web-mvpco",
     title: "The MVP Studio",
@@ -257,11 +271,11 @@ const linkItems: LinkItem[] = [
 
 const categories = [
   { id: "all", label: "All Links", count: linkItems.length },
-  { id: "resume", label: "Resume", count: 1 },
-  { id: "projects", label: "Projects", count: 3 },
-  { id: "websites", label: "Websites", count: 4 },
-  { id: "portfolios", label: "Portfolios", count: 5 },
-  { id: "connect", label: "Connect", count: 3 },
+  { id: "resume", label: "Resume", count: linkItems.filter((i) => i.category === "resume").length },
+  { id: "certifications", label: "Certifications", count: linkItems.filter((i) => i.category === "certifications").length },
+  { id: "projects", label: "Projects", count: linkItems.filter((i) => i.category === "projects").length },
+  { id: "websites", label: "Websites", count: linkItems.filter((i) => i.category === "websites").length },
+  { id: "connect", label: "Connect", count: linkItems.filter((i) => i.category === "connect").length },
 ];
 
 const socials = [
@@ -628,6 +642,21 @@ const socials = [
                               stroke-linecap="round"
                               stroke-linejoin="round"
                               d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                            />
+                          </svg>
+                        )}
+                        {item.iconName === "certificate" && (
+                          <svg
+                            class="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
                             />
                           </svg>
                         )}
